@@ -1,5 +1,37 @@
 {
+  // Usa la configuración estricta de Astro
   "extends": "astro/tsconfigs/strict",
+
+  // Archivos que debe incluir para el tipado
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "exclude": ["dist"],
+
+  "compilerOptions": {
+    // Habilita imports relativos desde la raíz
+    "baseUrl": ".",
+
+    // Alias para imports bonitos
+    "paths": {
+      // Para archivos en src/
+      "@/*": ["./src/*"],
+
+      // Alias extra para los componentes de shadcn
+      "@components/*": ["./components/*"],
+
+      // Alias opcional si usas lib/ o utils/ fuera de src
+      "@lib/*": ["./lib/*"],
+      "@utils/*": ["./utils/*"]
+    },
+
+    // Recomendado si usas React en Astro
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+
+    // Otras buenas prácticas
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  }
 }

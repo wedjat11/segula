@@ -44,3 +44,100 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+```
+segula
+├─ README.md
+├─ astro.config.mjs
+├─ components.json
+├─ package-lock.json
+├─ package.json
+├─ public
+│  └─ favicon.svg
+├─ src
+│  ├─ assets
+│  │  ├─ astro.svg
+│  │  ├─ background.svg
+│  │  ├─ logoSegula.png
+│  │  ├─ motor.webp
+│  │  └─ sections
+│  │     └─ about-bg.webp
+│  ├─ components
+│  │  ├─ AboutSection.tsx
+│  │  ├─ ChangeLanguage.tsx
+│  │  ├─ GropSiteButton.astro
+│  │  ├─ MainHeader.tsx
+│  │  ├─ MainImageContainer.tsx
+│  │  ├─ MainMenu.tsx
+│  │  ├─ ScrollButton.tsx
+│  │  ├─ TitleContainer.tsx
+│  │  ├─ Welcome.astro
+│  │  ├─ WhiteBullet.tsx
+│  │  └─ ui
+│  │     ├─ button.tsx
+│  │     ├─ popover.tsx
+│  │     └─ select.tsx
+│  ├─ layouts
+│  │  └─ Layout.astro
+│  ├─ lib
+│  │  ├─ mapImages.ts
+│  │  └─ utils.ts
+│  ├─ pages
+│  │  ├─ en
+│  │  │  └─ index.astro
+│  │  ├─ fr
+│  │  │  └─ index.astro
+│  │  └─ index.astro
+│  └─ styles
+│     └─ global.css
+└─ tsconfig.json
+
+```
+```
+segula
+├─ README.md
+├─ astro.config.mjs
+├─ components.json
+├─ package-lock.json
+├─ package.json
+├─ public
+│  └─ favicon.svg
+├─ src
+│  ├─ assets
+│  │  ├─ astro.svg
+│  │  ├─ background.svg
+│  │  ├─ logoSegula.png
+│  │  ├─ motor.webp
+│  │  └─ sections
+│  │     └─ about-bg.webp
+│  ├─ components
+│  │  ├─ AboutSection.tsx
+│  │  ├─ ChangeLanguage.tsx
+│  │  ├─ GropSiteButton.astro
+│  │  ├─ MainHeader.tsx
+│  │  ├─ MainImageContainer.tsx
+│  │  ├─ MainMenu.tsx
+│  │  ├─ ScrollButton.tsx
+│  │  ├─ TitleContainer.tsx
+│  │  ├─ Welcome.astro
+│  │  ├─ WhiteBullet.tsx
+│  │  └─ ui
+│  │     ├─ button.tsx
+│  │     ├─ popover.tsx
+│  │     └─ select.tsx
+│  ├─ layouts
+│  │  └─ Layout.astro
+│  ├─ lib
+│  │  ├─ mapImages.ts
+│  │  └─ utils.ts
+│  ├─ pages
+│  │  ├─ en
+│  │  │  └─ index.astro
+│  │  ├─ fr
+│  │  │  └─ index.astro
+│  │  └─ index.astro
+│  └─ styles
+│     └─ global.css
+└─ tsconfig.json
+
+```

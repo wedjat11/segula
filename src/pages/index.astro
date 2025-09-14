@@ -1,11 +1,29 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import Layout from '../layouts/Layout.astro';
+import MainHeader from '@/components/MainHeader';
+import MainMenu from '@/components/MainMenu';
+import MainImageContainer from '@/components/MainImageContainer';
+import TtileContainer from '@/components/TitleContainer';
+import ScrollButton from '@/components/ScrollButton';
+import WhiteBullet from '@/components/WhiteBullet';
+import AboutSection from '@/components/AboutSection';
+import ServicesSection from '@/components/ServicesSection';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const aboutURL = getRelativeLocaleUrl("es", "about");
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Segula">
+   <container class="flex flex-col gap-10">
+    <MainHeader client:only = "react" />
+    <MainMenu client:only = "react" />
+
+    <MainImageContainer section="about" lang="es"   />
+    <ScrollButton/>
+
+    <TtileContainer />
+    <AboutSection />
+    <ServicesSection client:load lang="fr" />
+
+    </container>
 </Layout>
