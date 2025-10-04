@@ -1,15 +1,30 @@
 import { defineConfig } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
+import tailwindcss from "@tailwindcss/vite";
+
 export default defineConfig({
+  integrations: [react()],
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ["react", "react-dom"],
+    },
   },
 
+  // i18n nativo
   i18n: {
-    locales: ["es", "en", "fr"],
     defaultLocale: "es",
+    locales: ["es", "en", "fr"],
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: true,
+    },
+    fallback: {
+      en: "es",
+      fr: "es",
+    },
   },
 
-  integrations: [react()],
+  output: "static",
+  site: "https://segula-technologies.com",
 });

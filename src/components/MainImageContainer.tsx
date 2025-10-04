@@ -1,40 +1,156 @@
 import React, { useMemo, useState } from "react";
 import clsx from "clsx";
-import { imageSections } from "@/lib/mapImages";
+import {
+  getSectionData,
+  getDefaultSection,
+  isValidSection,
+} from "@/lib/mapImages";
+import type { Language } from "../lib/translations";
 
-export type SectionKey = keyof typeof imageSections;
+export type SectionKey = string;
 
 interface Props {
   section?: SectionKey;
-  lang?: "es" | "en" | "fr";
+  locale: Language;
   className?: string;
 }
 
-export default function MainImageContainer({
-  section = Object.keys(imageSections)[0] as SectionKey,
-  lang = "es",
+const MainImageContainer: React.FC<Props> = ({
+  section,
+  locale,
   className,
-}: Props) {
-  const [selected, setSelected] = useState<SectionKey>(section);
+}) => {
+  // Usar sección válida o por defecto
+  const validSection =
+    section && isValidSection(section) ? section : getDefaultSection();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
-  const data = useMemo(() => imageSections[selected], [selected]);
+  // Obtener datos de la sección usando helper
+  const sectionData = useMemo(
+    () => getSectionData(validSection, locale),
+    [validSection, locale]
+  );
 
-  const imgSrc = data?.image ?? "";
-  const imgAlt = selected;
-  const text = data?.[lang] ?? "";
+  // Textos de fallback por idioma
+  const fallbackTexts = {
+    es: "Únete a miles de ingenieros en Segula Technologies",
+    en: "Join thousands of engineers at Segula Technologies",
+    fr: "Rejoignez des milliers d'ingénieurs chez Segula Technologies",
+  };
+
+  const imgSrc = sectionData?.image ?? "";
+  const imgAlt = sectionData?.alt ?? `Segula Technologies - ${validSection}`;
+  const displayText = sectionData?.text ?? fallbackTexts[locale];
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+    console.warn(`Error loading image: ${imgSrc} for section: ${validSection}`);
+  };
+
+  // Loading/Error states labels por idioma
+  const stateLabels = {
+    loading: {
+      es: "Cargando imagen...",
+      en: "Loading image...",
+      fr: "Chargement de l'image...",
+    },
+    error: {
+      es: "Error al cargar imagen",
+      en: "Error loading image",
+      fr: "Erreur de chargement d'image",
+    },
+    section: {
+      es: "Sección",
+      en: "Section",
+      fr: "Section",
+    },
+  };
 
   return (
-    <section className={clsx("relative w-screen md:max-h-[650px]", className)}>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent z-10"></div>
-      <div className="w-full h-[300px] md:h-[65vh] overflow-hidden">
-        <img src={imgSrc} alt={imgAlt} className="w-full h-full object-cover" />
+    <section
+      className={clsx("relative w-screen md:max-h-[650px]", className)}
+      aria-label={`${stateLabels.section[locale]}: ${validSection}`}
+    >
+      {/* Gradiente overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/100 via-black/20 to-transparent z-10"></div>
+
+      {/* Contenedor de imagen */}
+      <div className="w-full h-[300px] md:h-[65vh] overflow-hidden relative">
+        {/* Loading placeholder */}
+        {!imageLoaded && !imageError && (
+          <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
+            <div className="text-center text-white">
+              <div className="loading-spinner mx-auto mb-2"></div>
+              <p className="text-sm opacity-75" aria-live="polite">
+                {stateLabels.loading[locale]}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Error fallback */}
+        {imageError && (
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-purple-900 flex items-center justify-center">
+            <div className="text-white text-center">
+              <svg
+                className="w-16 h-16 mx-auto mb-4 opacity-50"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <p className="text-sm opacity-75" role="alert">
+                {stateLabels.error[locale]}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Imagen principal */}
+        {imgSrc && (
+          <img
+            src={imgSrc}
+            alt={imgAlt}
+            className={clsx(
+              "w-full h-full object-cover transition-opacity duration-500",
+              imageLoaded && !imageError ? "opacity-100" : "opacity-0"
+            )}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            loading="eager" // Carga inmediata para imagen principal
+          />
+        )}
       </div>
 
-      {text && (
-        <p className="w-full  md:w-1/2 text-center px-3 md:p-0 absolute text-xs z-20 bottom-4 left-1/2 -translate-x-1/2 text-white md:text-xl font-light md:font-normal ">
-          {text}
-        </p>
+      {/* Texto descriptivo */}
+      {displayText && (
+        <div className="absolute inset-x-0 bottom-0 z-20 p-4 md:p-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-white text-sm md:text-xl font-light md:font-normal leading-relaxed drop-shadow-lg">
+              {displayText}
+            </p>
+          </div>
+        </div>
       )}
+
+      {/* Indicador de sección (opcional) */}
+      <div className="absolute top-4 left-4 z-20">
+        <span className="bg-black/50 text-white px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm">
+          {validSection.charAt(0).toUpperCase() + validSection.slice(1)}
+        </span>
+      </div>
     </section>
   );
-}
+};
+
+export default MainImageContainer;

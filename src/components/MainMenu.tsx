@@ -1,32 +1,47 @@
+import React from "react";
 import { PopoverArrow } from "@radix-ui/react-popover";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import type { Language } from "../lib/translations";
+import { useTranslations, getLocalizedUrl } from "../lib/i18n-utils";
 
 interface Props {
+  locale: Language;
   className?: string;
   ismobile?: boolean;
 }
 
-const links = [
-  { name: "About Us", url: "/about" },
-  { name: "Engineering services", url: "/engineering" },
-  { name: "Analysis and simulation", url: "/analysis" },
-  { name: "News", url: "/news" },
-  { name: "Innovation", url: "/innovation" },
-];
+// Enlaces del menú (rutas base sin idioma)
+const menuLinks = [
+  { nameKey: "aboutUs", url: "/" },
+  { nameKey: "engineeringServices", url: "/engineering-services" },
+  { nameKey: "analysisSimulation", url: "/analysis-simulation" },
+  { nameKey: "news", url: "/news" },
+  { nameKey: "innovation", url: "/innovation" },
+] as const;
 
-function MobileMenu() {
+interface MobileMenuProps {
+  locale: Language;
+}
+
+function MobileMenu({ locale }: MobileMenuProps) {
+  const t = useTranslations(locale);
+
   return (
-    <div className="w-full bg-primary text-white rounded-full ">
+    <div className="w-full bg-primary text-white rounded-full">
       <div className="container mx-auto px-4 py-3 text-white">
         <Popover>
           <PopoverTrigger asChild>
-            <button className="text-white px-6 py-3 rounded-md flex items-center w-full font-semibold justify-between">
-              <span>About Us</span>
+            <button
+              className="text-white px-6 py-3 rounded-md flex items-center w-full font-semibold justify-between hover:bg-white/10 transition-colors"
+              aria-label={`${t.menu.menu} - ${t.menu.aboutUs}`}
+            >
+              <span>{t.menu.aboutUs}</span>
               <svg
-                className="w-4 h-4 ml-2"
+                className="w-4 h-4 ml-2 transition-transform group-data-[state=open]:rotate-180"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -37,19 +52,25 @@ function MobileMenu() {
               </svg>
             </button>
           </PopoverTrigger>
-          <PopoverContent className="w-screen bg-primary text-white  mx-auto mt-2 p-0 border-0 px-4">
-            <div className="rounded-lg  overflow-hidden">
-              {links.map((link, index) => (
+
+          <PopoverContent className="w-screen bg-primary text-white mx-auto mt-2 p-0 border-0 px-4">
+            <nav
+              className="rounded-lg overflow-hidden"
+              role="navigation"
+              aria-label={`${t.menu.menu} principal`}
+            >
+              {menuLinks.map((link, index) => (
                 <a
                   key={index}
-                  href={link.url}
-                  className="block px-6 py-4  hover:bg-primary hover:text-white transition-colors "
+                  href={getLocalizedUrl(locale, link.url)}
+                  className="block px-6 py-4 hover:bg-white/10 transition-colors focus:bg-white/20 focus:outline-none"
+                  role="menuitem"
                 >
-                  {link.name.toUpperCase()}
+                  {t.menu[link.nameKey].toUpperCase()}
                 </a>
               ))}
-            </div>
-            <PopoverArrow className="fill-white" />
+            </nav>
+            <PopoverArrow className="fill-primary" />
           </PopoverContent>
         </Popover>
       </div>
@@ -57,19 +78,30 @@ function MobileMenu() {
   );
 }
 
-function DesktopMenu() {
+interface DesktopMenuProps {
+  locale: Language;
+}
+
+function DesktopMenu({ locale }: DesktopMenuProps) {
+  const t = useTranslations(locale);
+
   return (
     <div className="w-full bg-primary text-white">
       <div className="container mx-auto px-4 py-4">
-        <nav className="flex justify-center">
+        <nav
+          className="flex justify-center"
+          role="navigation"
+          aria-label={`${t.menu.menu} principal`}
+        >
           <div className="flex gap-8 flex-wrap justify-center">
-            {links.map((link, index) => (
+            {menuLinks.map((link, index) => (
               <a
                 key={index}
-                href={link.url}
-                className="px-6 py-3 rounded-md hover:hover:text-primary transition-all duration-300 font-medium text-center whitespace-nowrap"
+                href={getLocalizedUrl(locale, link.url)}
+                className="px-6 py-3 rounded-md hover:bg-white/10 hover:text-white transition-all duration-300 font-medium text-center whitespace-nowrap focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
+                role="menuitem"
               >
-                {link.name.toUpperCase()}
+                {t.menu[link.nameKey].toUpperCase()}
               </a>
             ))}
           </div>
@@ -79,18 +111,20 @@ function DesktopMenu() {
   );
 }
 
-export default function MainMenu({ className = "", ismobile }: Props) {
+const MainMenu: React.FC<Props> = ({ locale, className = "", ismobile }) => {
   return (
     <div className={className}>
       {/* Mobile Menu - visible only on mobile */}
       <div className="block md:hidden px-4">
-        <MobileMenu />
+        <MobileMenu locale={locale} />
       </div>
 
       {/* Desktop Menu - visible only on desktop */}
       <div className="hidden md:block">
-        <DesktopMenu />
+        <DesktopMenu locale={locale} />
       </div>
     </div>
   );
-}
+};
+
+export default MainMenu;

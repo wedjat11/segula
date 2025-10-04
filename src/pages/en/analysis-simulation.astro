@@ -1,0 +1,59 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import Layout from '../../layouts/Layout.astro';
+import MainHeader from '@/components/MainHeader';
+import MainMenu from '@/components/MainMenu';
+import MainImageContainer from '@/components/MainImageContainer';
+import TitleContainer from '@/components/TitleContainer';
+import ScrollButton from '@/components/ScrollButton';
+import AnalysisSection from '@/components/AnalysisSection';
+import Footer from '@/components/Footer';
+
+const currentLocale = 'en';
+const currentPath = Astro.url.pathname;
+---
+
+<Layout
+  title="Segula Technologies - Analysis and Simulation"
+  lang={currentLocale}
+  currentPath={currentPath}
+>
+  <container class="flex flex-col gap-10">
+    <MainHeader
+      currentLocale={currentLocale}
+      currentPath={currentPath}
+      client:load
+    />
+
+    <MainMenu
+      locale={currentLocale}
+      client:load
+    />
+
+    <MainImageContainer
+      section="about"
+      locale={currentLocale}
+    />
+
+    <ScrollButton />
+
+    <TitleContainer
+      locale={currentLocale}
+      section="services"
+      client:load
+    />
+
+    <AnalysisSection
+      locale={currentLocale}
+      client:load
+    />
+
+    <Footer locale={currentLocale} client:load />
+  </container>
+</Layout>
+
+<style>
+  container {
+    @apply w-full max-w-none;
+  }
+</style>

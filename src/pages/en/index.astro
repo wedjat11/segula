@@ -1,7 +1,84 @@
 ---
-import "../../styles/global.css";
+// src/pages/index.astro (Página principal en español)
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import Layout from '../../layouts/Layout.astro';
+import MainHeader from '@/components/MainHeader';
+import MainMenu from '@/components/MainMenu';
+import MainImageContainer from '@/components/MainImageContainer';
+import TitleContainer from '@/components/TitleContainer';
+import ScrollButton from '@/components/ScrollButton';
+import WhiteBullet from '@/components/WhiteBullet';
+import AboutSection from '@/components/AboutSection';
+import ServicesSection from '@/components/ServicesSection';
+import JobApplicationForm from '@/components/JobApplicationForm';
+import Footer from '@/components/Footer';
+
+// Configuración del idioma para esta página
+const currentLocale = 'en';
+const currentPath = Astro.url.pathname;
+
+// URLs localizadas para navegación
+const aboutURL = getRelativeLocaleUrl('es', 'about');
 ---
 
-<h1 class="text-red-500 bg-green-500">Hello from English</h1>
+<Layout 
+  title="Segula Technologies - Únete a nuestro equipo de ingenieros" 
+  lang={currentLocale}
+  currentPath={currentPath}
+>
+  <container class="flex flex-col gap-10">
+    <!-- Header con selector de idioma -->
+    <MainHeader 
+      currentLocale={currentLocale}
+      currentPath={currentPath}
+      client:load 
+    />
+    
+    <!-- Menu principal -->
+    <MainMenu 
+      locale={currentLocale}
+      client:load 
+    />
 
-<p class="bg-yellow-400">This is a blog post about Astro</p>
+    <!-- Contenedor de imagen principal -->
+    <MainImageContainer 
+      section="about" 
+      locale={currentLocale}
+    />
+    
+    <!-- Botón de scroll -->
+    <ScrollButton />
+
+    <!-- Contenedor de título con traducciones -->
+    <TitleContainer 
+      locale={currentLocale}
+      client:load 
+    />
+    
+    <!-- Sección about con traducciones -->
+    <AboutSection 
+      locale={currentLocale}
+      client:load 
+    />
+    
+    <!-- Sección de servicios -->
+    <ServicesSection 
+      locale={currentLocale}
+      client:load 
+    />
+    
+    <!-- Formulario de aplicación -->
+    <!-- <JobApplicationForm
+      locale={currentLocale}
+      client:load
+    /> -->
+
+    <Footer locale={currentLocale} client:load />
+  </container>
+</Layout>
+
+<style>
+  container {
+    @apply w-full max-w-none;
+  }
+</style>

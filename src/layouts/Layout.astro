@@ -1,31 +1,317 @@
 ---
-import WhatsAppFloat from "@/components/WhatssAppFolat";
+// src/layouts/Layout.astro
+
+import WhatsAppFloat from '@/components/WhatssAppFolat';
+import type { Language } from '../lib/translations';
 import "../styles/global.css";
+
+export interface Props {
+  title: string;
+  lang?: Language;
+  description?: string;
+  currentPath?: string;
+}
+
+const { title, lang = 'es', description, currentPath = '/' } = Astro.props;
+
+// Descripciones por idioma
+const descriptions = {
+  es: description || 'Únete a Segula Technologies. Miles de nuevos ingenieros comienzan su historia con nosotros cada año. ¿Por qué no tú?',
+  en: description || 'Join Segula Technologies. Thousands of new engineers start their story with us every year. Why not you?',
+  fr: description || 'Rejoignez Segula Technologies. Des milliers de nouveaux ingénieurs commencent leur histoire avec nous chaque année. Pourquoi pas vous ?'
+};
+
+// Meta tags por idioma con mejor SEO
+const metaTags = {
+  es: {
+    keywords: 'empleo ingeniería, trabajos tecnología, Segula Technologies, carreras ingeniería, oportunidades laborales México, empleos ingenieros',
+    ogTitle: 'Únete a Segula Technologies - Oportunidades para Ingenieros',
+    ogDescription: descriptions.es,
+    titleSuffix: ' | Segula Technologies'
+  },
+  en: {
+    keywords: 'engineering jobs, technology careers, Segula Technologies, engineering opportunities, job applications, engineer positions',
+    ogTitle: 'Join Segula Technologies - Engineering Opportunities',
+    ogDescription: descriptions.en,
+    titleSuffix: ' | Segula Technologies'
+  },
+  fr: {
+    keywords: 'emplois ingénierie, carrières technologie, Segula Technologies, opportunités ingénierie, candidatures, postes ingénieurs',
+    ogTitle: 'Rejoignez Segula Technologies - Opportunités pour Ingénieurs',
+    ogDescription: descriptions.fr,
+    titleSuffix: ' | Segula Technologies'
+  }
+};
+
+const currentMeta = metaTags[lang];
+
+// Generar URLs absolutas para hreflang
+const baseUrl = Astro.site?.toString() || 'https://segula-technologies.com';
+const cleanPath = currentPath.replace(/^\/(es|en|fr)/, '') || '/';
+
+// URLs para hreflang (mejores para SEO)
+const hreflangs = {
+  es: cleanPath === '/' ? baseUrl : `${baseUrl}${cleanPath}`,
+  en: cleanPath === '/' ? `${baseUrl}en/` : `${baseUrl}en${cleanPath}`,
+  fr: cleanPath === '/' ? `${baseUrl}fr/` : `${baseUrl}fr${cleanPath}`
+};
+
+// URL canónica
+const canonicalUrl = lang === 'es' 
+  ? (cleanPath === '/' ? baseUrl : `${baseUrl}${cleanPath}`)
+  : `${baseUrl}${lang}${cleanPath}`;
+
+// Título completo con sufijo
+const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titleSuffix}`;
 ---
 
-
-<!doctype html>
-<html lang="es">
-	<head>
-		
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link type="text/css" rel="stylesheet" href="/styles/global.css" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body class="bg-background ">
-		<slot />
-		<WhatsAppFloat client:load />
-	</body>
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={descriptions[lang]} />
+    <meta name="keywords" content={currentMeta.keywords} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Segula Technologies" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1e293b" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={currentMeta.ogTitle} />
+    <meta property="og:description" content={currentMeta.ogDescription} />
+    <meta property="og:image" content={`${baseUrl}logoSegula.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Segula Technologies" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_ES' : lang === 'en' ? 'en_US' : 'fr_FR'} />
+    
+    <!-- Open Graph alternate locales -->
+    {lang !== 'es' && <meta property="og:locale:alternate" content="es_ES" />}
+    {lang !== 'en' && <meta property="og:locale:alternate" content="en_US" />}
+    {lang !== 'fr' && <meta property="og:locale:alternate" content="fr_FR" />}
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SegulaGroup" />
+    <meta name="twitter:creator" content="@SegulaGroup" />
+    <meta name="twitter:title" content={currentMeta.ogTitle} />
+    <meta name="twitter:description" content={currentMeta.ogDescription} />
+    <meta name="twitter:image" content={`${baseUrl}logoSegula.png`} />
+    
+    <!-- Hreflang tags para SEO multiidioma -->
+    <link rel="alternate" hreflang="es" href={hreflangs.es} />
+    <link rel="alternate" hreflang="en" href={hreflangs.en} />
+    <link rel="alternate" hreflang="fr" href={hreflangs.fr} />
+    <link rel="alternate" hreflang="x-default" href={hreflangs.es} />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <!-- Favicon y iconos -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- Preload recursos críticos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="/logoSegula.png" as="image" type="image/png" />
+    
+    <!-- DNS Prefetch para recursos externos -->
+    <link rel="dns-prefetch" href="//wa.me" />
+    <link rel="dns-prefetch" href="//api.whatsapp.com" />
+    
+    <!-- Title -->
+    <title>{fullTitle}</title>
+    
+    <!-- Global styles -->
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      body {
+        background-color: #101619;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        line-height: 1.6;
+        color: #ffffff;
+      }
+      
+      /* Loading spinner styles */
+      .loading-spinner {
+        border: 2px solid #f3f3f3;
+        border-top: 2px solid #3498db;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Error message animation */
+      .error-message {
+        animation: slideInUp 0.3s ease-out;
+      }
+      
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      /* Form input transitions */
+      .form-input {
+        transition: all 0.3s ease;
+      }
+      
+      .form-input:focus {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+      }
+      
+      /* File input button styles */
+      .file-input-button {
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      .file-input-button:hover {
+        background-color: #f9fafb;
+      }
+      
+      /* Custom gradient */
+      .custom-gradient {
+        background: linear-gradient(135deg, #1e293b 0%, #1e40af 50%, #1e293b 100%);
+      }
+      
+      /* Language selector hover effects */
+      .language-selector {
+        transition: all 0.2s ease;
+      }
+      
+      .language-selector:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      /* Responsive utilities */
+      @media (max-width: 640px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        body {
+          font-size: 14px;
+        }
+      }
+      
+      /* Screen reader only content */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      
+      /* Improved focus styles for accessibility */
+      *:focus {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px;
+      }
+      
+      /* Skip to main content link */
+      .skip-to-main {
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: #000;
+        color: #fff;
+        padding: 8px;
+        text-decoration: none;
+        z-index: 9999;
+      }
+      
+      .skip-to-main:focus {
+        top: 6px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <!-- Skip to main content para accesibilidad -->
+    <a href="#main-content" class="skip-to-main sr-only focus:not-sr-only">
+      {lang === 'es' ? 'Ir al contenido principal' : 
+       lang === 'en' ? 'Skip to main content' : 
+       'Aller au contenu principal'}
+    </a>
+    
+    <!-- Contenido principal -->
+    <main id="main-content">
+      <slot />
+    </main>
+    
+    <!-- WhatsApp Float -->
+    <WhatsAppFloat client:load />
+    
+    <!-- Structured data para mejor SEO -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Segula Technologies",
+      "url": baseUrl,
+      "logo": `${baseUrl}logoSegula.png`,
+      "description": descriptions[lang],
+      "sameAs": [
+        "https://www.linkedin.com/company/segula-technologies",
+        "https://www.facebook.com/SegulaGroup",
+        "https://twitter.com/SegulaGroup",
+        "https://www.instagram.com/segula_technologies"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "HR",
+        "availableLanguage": ["Spanish", "English", "French"]
+      },
+      "jobPosting": {
+        "@type": "JobPosting",
+        "title": lang === 'es' ? 'Posiciones de Ingeniería' : 
+                 lang === 'en' ? 'Engineering Positions' : 
+                 'Postes d\'Ingénierie',
+        "description": descriptions[lang],
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": "Segula Technologies",
+          "logo": `${baseUrl}logoSegula.png`
+        },
+        "employmentType": ["FULL_TIME", "PART_TIME", "CONTRACTOR"],
+        "jobLocation": {
+          "@type": "Place",
+          "addressLocality": "Global",
+          "addressCountry": "Multiple"
+        },
+        "datePosted": new Date().toISOString().split('T')[0],
+        "validThrough": new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+      }
+    })} />
+    
+    <!-- Analytics placeholder (agregar tu código de analytics aquí) -->
+    <!-- Google Analytics, Hotjar, etc. -->
+  </body>
 </html>
-
-<style>
-	html,	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		background-color: black;
-	}
-</style>

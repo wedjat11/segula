@@ -1,29 +1,83 @@
 ---
+// src/pages/index.astro (Página principal en español)
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Layout from '../layouts/Layout.astro';
 import MainHeader from '@/components/MainHeader';
 import MainMenu from '@/components/MainMenu';
 import MainImageContainer from '@/components/MainImageContainer';
-import TtileContainer from '@/components/TitleContainer';
+import TitleContainer from '@/components/TitleContainer';
 import ScrollButton from '@/components/ScrollButton';
 import WhiteBullet from '@/components/WhiteBullet';
 import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
+import JobApplicationForm from '@/components/JobApplicationForm';
+import Footer from '@/components/Footer';
 
-const aboutURL = getRelativeLocaleUrl("es", "about");
+// Configuración del idioma para esta página
+const currentLocale = 'es';
+const currentPath = Astro.url.pathname;
+
+// URLs localizadas para navegación
+const aboutURL = getRelativeLocaleUrl('es', 'about');
 ---
 
-<Layout title="Segula">
-   <container class="flex flex-col gap-10">
-    <MainHeader client:only = "react" />
-    <MainMenu client:only = "react" />
+<Layout 
+  title="Segula Technologies - Únete a nuestro equipo de ingenieros" 
+  lang={currentLocale}
+  currentPath={currentPath}
+>
+  <container class="flex flex-col gap-10">
+    <!-- Header con selector de idioma -->
+    <MainHeader 
+      currentLocale={currentLocale}
+      currentPath={currentPath}
+      client:load 
+    />
+    
+    <!-- Menu principal -->
+    <MainMenu 
+      locale={currentLocale}
+      client:load 
+    />
 
-    <MainImageContainer section="about" lang="es"   />
-    <ScrollButton/>
+    <!-- Contenedor de imagen principal -->
+    <MainImageContainer 
+      section="about" 
+      locale={currentLocale}
+    />
+    
+    <!-- Botón de scroll -->
+    <ScrollButton />
 
-    <TtileContainer />
-    <AboutSection />
-    <ServicesSection client:load lang="fr" />
+    <!-- Contenedor de título con traducciones -->
+    <TitleContainer 
+      locale={currentLocale}
+      client:load 
+    />
+    
+    <!-- Sección about con traducciones -->
+    <AboutSection 
+      locale={currentLocale}
+      client:load 
+    />
+    
+    <!-- Sección de servicios -->
+    <ServicesSection 
+      locale={currentLocale}
+      client:load 
+    />
+    
+    <JobApplicationForm
+    locale={currentLocale}
+    client:load
+  />
 
-    </container>
+  <Footer locale={currentLocale} client:load />
+  </container>
 </Layout>
+
+<style>
+  container {
+    @apply w-full max-w-none;
+  }
+</style>

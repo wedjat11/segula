@@ -1,14 +1,9 @@
-import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import React, { useState } from "react";
+import { X } from "lucide-react";
+import type { Language } from "../lib/translations";
 
-// Importa el tipo desde el archivo principal o crea un archivo types.ts
-interface Service {
+// Interface simplificada para ServiceCard (ya procesada por idioma)
+interface ProcessedService {
   id: string;
   title: string;
   icon?: string;
@@ -20,145 +15,202 @@ interface Service {
   borderColor?: string;
 }
 
-interface ServiceCardProps {
-  service: Service;
-  isActive?: boolean;
-  variant?: "desktop" | "mobile";
+interface Props {
+  service: ProcessedService;
+  locale: Language;
+  isActive: boolean;
+  isHovered?: boolean;
+  variant: "desktop" | "mobile";
   onClose?: () => void;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({
+const ServiceCard: React.FC<Props> = ({
   service,
-  isActive = false,
-  variant = "desktop",
+  locale,
+  isActive,
+  isHovered = false,
+  variant,
   onClose,
 }) => {
-  // Renderizado para Desktop - Siempre visible
-  if (variant === "desktop") {
-    return (
-      <div
-        className={`
-        relative rounded-3xl overflow-hidden transition-all duration-500 transform
-        ${isActive ? "bg-white scale-105 z-20" : " scale-95 opacity-80 z-10"}
-       
-      `}
-      >
-        {/* Imagen de fondo */}
-        <div className="relative h-[280px] overflow-hidden">
-          <img
-            src={service.imageSrc}
-            alt={service.imageAlt}
-            className={`w-full h-full object-cover transition-all duration-500
-              ${isActive ? "scale-105" : "scale-100 opacity-70"}`}
-          />
-          {/* Overlay gradient */}
-        </div>
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
-        {/* Contenido de texto */}
-        <div
-          className={`p-8 transition-colors duration-500
-          ${
-            isActive ? "bg-white text-gray-900" : "bg-gray-800/80 text-gray-300"
-          }`}
-        >
-          <h3
-            className={`text-2xl font-bold mb-4 transition-colors duration-500
-            ${isActive ? "text-gray-900" : "text-white"}`}
-          >
-            {service.title}
-          </h3>
-          <p
-            className={`mb-4 transition-colors duration-500 text-sm leading-relaxed
-            ${isActive ? "text-gray-700" : "text-gray-400"}`}
-          >
-            {service.description}
-          </p>
+  // Traducciones para elementos de la card
+  const cardTranslations = {
+    es: {
+      features: "Características",
+      close: "Cerrar",
+      learnMore: "Conoce más",
+      imageError: "Error al cargar imagen",
+    },
+    en: {
+      features: "Features",
+      close: "Close",
+      learnMore: "Learn more",
+      imageError: "Error loading image",
+    },
+    fr: {
+      features: "Caractéristiques",
+      close: "Fermer",
+      learnMore: "En savoir plus",
+      imageError: "Erreur de chargement d'image",
+    },
+  };
 
-          {service.features.length > 0 && (
-            <ul className="space-y-2">
-              {service.features.map((feature, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 transition-colors duration-500
-                    ${isActive ? "bg-gray-700" : "bg-gray-500"}`}
-                  />
-                  <span
-                    className={`text-sm transition-colors duration-500
-                    ${isActive ? "text-gray-600" : "text-gray-500"}`}
-                  >
-                    {feature}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </div>
-    );
-  }
+  const t = cardTranslations[locale];
 
-  // Renderizado para Mobile
+  const handleImageLoad = () => setImageLoaded(true);
+  const handleImageError = () => setImageError(true);
+
+  // Clases condicionales basadas en el estado
+  const cardClasses = `
+    relative overflow-hidden rounded-xl transition-all duration-500 ease-in-out
+    ${variant === "desktop" ? "h-96" : "h-auto"}
+    ${
+      isActive
+        ? "transform scale-105 shadow-2xl ring-2 ring-white/20"
+        : "shadow-lg"
+    }
+    ${isHovered ? "shadow-xl" : ""}
+    ${service.borderColor || "border-gray-600"}
+    bg-gradient-to-br from-gray-900 to-gray-800
+  `;
+
   return (
-    <Card className="relative rounded-2xl overflow-hidden bg-white shadow-xl border-2 border-white animate-in slide-in-from-bottom duration-300">
-      {/* Botón de cerrar */}
-      {onClose && (
+    <div className={cardClasses}>
+      {/* Botón cerrar en mobile */}
+      {variant === "mobile" && onClose && (
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full 
-                     bg-gray-900/10 backdrop-blur-sm
-                     flex items-center justify-center text-gray-900
-                     hover:bg-gray-900/20 transition-colors"
-          aria-label="Cerrar detalles"
+          className="absolute top-4 right-4 z-20 p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors"
+          aria-label={t.close}
         >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <X size={20} />
         </button>
       )}
 
-      {/* Imagen */}
-      <div className="relative h-48 overflow-hidden">
+      {/* Imagen de fondo */}
+      <div className="absolute inset-0">
+        {!imageLoaded && !imageError && (
+          <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
+            <div className="loading-spinner"></div>
+          </div>
+        )}
+
+        {imageError && (
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+            <div className="text-white/50 text-center">
+              <svg
+                className="w-12 h-12 mx-auto mb-2 opacity-50"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <p className="text-xs">{t.imageError}</p>
+            </div>
+          </div>
+        )}
+
         <img
           src={service.imageSrc}
           alt={service.imageAlt}
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover transition-all duration-500 ${
+            imageLoaded && !imageError ? "opacity-60" : "opacity-0"
+          } ${isActive ? "scale-110" : "scale-100"}`}
+          onLoad={handleImageLoad}
+          onError={handleImageError}
+          loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/90" />
+
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
       </div>
 
       {/* Contenido */}
-      <CardContent className="p-6 bg-white">
-        <CardHeader className="p-0 mb-4">
-          <CardTitle className="text-xl font-bold text-gray-900">
-            {service.title}
-          </CardTitle>
-          <CardDescription className="text-gray-700 text-sm mt-2">
-            {service.description}
-          </CardDescription>
-        </CardHeader>
-
-        {service.features.length > 0 && (
-          <ul className="space-y-2">
-            {service.features.map((feature, idx) => (
-              <li key={idx} className="flex items-start gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-gray-700 mt-1.5 flex-shrink-0" />
-                <span className="text-sm text-gray-600">{feature}</span>
-              </li>
-            ))}
-          </ul>
+      <div className="relative z-10 p-6 h-full flex flex-col justify-end">
+        {/* Icono del servicio */}
+        {service.icon && (
+          <div className="mb-4">
+            <img
+              src={service.icon}
+              alt=""
+              className="w-12 h-12 filter brightness-0 invert"
+              aria-hidden="true"
+            />
+          </div>
         )}
-      </CardContent>
-    </Card>
+
+        {/* Título */}
+        <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-tight">
+          {service.title}
+        </h3>
+
+        {/* Descripción */}
+        <p className="text-white/90 text-sm md:text-base leading-relaxed mb-4 line-clamp-3">
+          {service.description}
+        </p>
+
+        {/* Features */}
+        {service.features && service.features.length > 0 && (
+          <div className="mb-4">
+            <h4 className="text-white font-semibold mb-2 text-sm uppercase tracking-wide">
+              {t.features}
+            </h4>
+            <ul className="space-y-1">
+              {service.features.slice(0, 3).map((feature, index) => (
+                <li
+                  key={index}
+                  className="text-white/80 text-xs md:text-sm flex items-start"
+                >
+                  <span className="w-1.5 h-1.5 bg-white rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                  <span className="line-clamp-2">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* CTA Button */}
+        <div className="mt-auto pt-4">
+          <button
+            className="inline-flex items-center text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium text-sm"
+            aria-label={`${t.learnMore} ${service.title}`}
+          >
+            {t.learnMore}
+            <svg
+              className="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Indicador de estado activo */}
+      {isActive && (
+        <div className="absolute top-4 left-4 z-20">
+          <div
+            className={`w-3 h-3 rounded-full ${
+              service.bulletColor || "bg-white"
+            } shadow-lg`}
+          ></div>
+        </div>
+      )}
+    </div>
   );
 };
 
