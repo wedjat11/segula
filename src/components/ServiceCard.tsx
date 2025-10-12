@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
 import type { Language } from "../lib/translations";
+import { useTranslations } from "../lib/i18n-utils";
 
 // Interface simplificada para ServiceCard (ya procesada por idioma)
 interface ProcessedService {
@@ -34,30 +35,7 @@ const ServiceCard: React.FC<Props> = ({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-
-  // Traducciones para elementos de la card
-  const cardTranslations = {
-    es: {
-      features: "Características",
-      close: "Cerrar",
-      learnMore: "Conoce más",
-      imageError: "Error al cargar imagen",
-    },
-    en: {
-      features: "Features",
-      close: "Close",
-      learnMore: "Learn more",
-      imageError: "Error loading image",
-    },
-    fr: {
-      features: "Caractéristiques",
-      close: "Fermer",
-      learnMore: "En savoir plus",
-      imageError: "Erreur de chargement d'image",
-    },
-  };
-
-  const t = cardTranslations[locale];
+  const t = useTranslations(locale);
 
   const handleImageLoad = () => setImageLoaded(true);
   const handleImageError = () => setImageError(true);
@@ -83,7 +61,7 @@ const ServiceCard: React.FC<Props> = ({
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-20 p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors"
-          aria-label={t.close}
+          aria-label={t.serviceCard.close}
         >
           <X size={20} />
         </button>
@@ -111,7 +89,7 @@ const ServiceCard: React.FC<Props> = ({
                   clipRule="evenodd"
                 />
               </svg>
-              <p className="text-xs">{t.imageError}</p>
+              <p className="text-xs">{t.serviceCard.imageError}</p>
             </div>
           </div>
         )}
@@ -159,7 +137,7 @@ const ServiceCard: React.FC<Props> = ({
         {service.features && service.features.length > 0 && (
           <div className="mb-4">
             <h4 className="text-white font-semibold mb-2 text-sm uppercase tracking-wide">
-              {t.features}
+              {t.serviceCard.features}
             </h4>
             <ul className="space-y-1">
               {service.features.slice(0, 3).map((feature, index) => (
@@ -179,9 +157,9 @@ const ServiceCard: React.FC<Props> = ({
         <div className="mt-auto pt-4">
           <button
             className="inline-flex items-center text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-medium text-sm"
-            aria-label={`${t.learnMore} ${service.title}`}
+            aria-label={`${t.serviceCard.learnMore} ${service.title}`}
           >
-            {t.learnMore}
+            {t.serviceCard.learnMore}
             <svg
               className="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1"
               fill="none"

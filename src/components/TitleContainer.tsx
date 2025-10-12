@@ -8,7 +8,7 @@ interface Props {
   title?: string;
   subtitle?: string;
   normal?: string;
-  section?: "main" | "business" | "about" | "services" | "careers" | "custom";
+  section?: "main" | "business" | "about" | "services" | "careers" | "analysisSimulation" | "custom";
 }
 
 const TitleContainer: React.FC<Props> = ({
@@ -32,17 +32,7 @@ const TitleContainer: React.FC<Props> = ({
       };
     }
 
-    if (section === "main") {
-      return {
-        title: title || `${t.mainTitle.eachYear} ${t.mainTitle.atSegula}`,
-        subtitle:
-          subtitle ||
-          `${t.mainTitle.weStartStory} ${t.mainTitle.thousandsNew} ${t.mainTitle.engineers}`,
-        description: normal || t.mainTitle.whyNotYou,
-      };
-    }
-
-    // Para otras secciones, usar sectionTitles si están disponibles
+    // Para todas las secciones (incluyendo main), usar sectionTitles si están disponibles
     if (section in t.sectionTitles) {
       const sectionData =
         t.sectionTitles[section as keyof typeof t.sectionTitles];
@@ -53,11 +43,11 @@ const TitleContainer: React.FC<Props> = ({
       };
     }
 
-    // Fallback
+    // Fallback para custom o secciones no definidas
     return {
-      title: title || t.mainTitle.atSegula,
-      subtitle: subtitle || t.mainTitle.weStartStory,
-      description: normal || t.mainTitle.whyNotYou,
+      title: title || "",
+      subtitle: subtitle || "",
+      description: normal || "",
     };
   };
 

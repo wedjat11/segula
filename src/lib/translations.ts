@@ -85,15 +85,11 @@ export interface Translations {
       subtitle: string;
       description: string;
     };
-  };
-  // Encabezados principales
-  mainTitle: {
-    eachYear: string;
-    atSegula: string;
-    weStartStory: string;
-    thousandsNew: string;
-    engineers: string;
-    whyNotYou: string;
+    analysisSimulation: {
+      title: string;
+      subtitle: string;
+      description: string;
+    };
   };
 
   // Formulario
@@ -157,6 +153,94 @@ export interface Translations {
     twitter: string;
     instagram: string;
     fileUpload: string;
+  };
+
+  // MainImageContainer
+  imageContainer: {
+    fallbackText: string;
+    loading: string;
+    error: string;
+    section: string;
+  };
+
+  // AboutSection
+  aboutSection: {
+    bulletTitle: string;
+    bulletAlt: string;
+    titleBold: string;
+    titleNormal: string;
+    paragraph1: string;
+    paragraph2: string;
+    imageAlt: string;
+    learnMore: string;
+  };
+
+  // ServiceCard
+  serviceCard: {
+    features: string;
+    close: string;
+    learnMore: string;
+    imageError: string;
+  };
+
+  // ServicesSection
+  servicesSection: {
+    bulletTitle: string;
+    bulletAlt: string;
+    title: string;
+    subtitle: string;
+    noServiceSelected: string;
+    services: {
+      automotive: {
+        title: string;
+        description: string;
+        features: string[];
+        imageAlt: string;
+      };
+      energy: {
+        title: string;
+        description: string;
+        features: string[];
+        imageAlt: string;
+      };
+      aerospace: {
+        title: string;
+        description: string;
+        features: string[];
+        imageAlt: string;
+      };
+    };
+  };
+
+  // MainHeader
+  header: {
+    groupSite: string;
+    groupSiteAria: string;
+    logoAria: string;
+  };
+
+  // ImageSections (de mapImages.ts)
+  imageSections: {
+    about: {
+      alt: string;
+      text: string;
+    };
+    engineering: {
+      alt: string;
+      text: string;
+    };
+    innovation: {
+      alt: string;
+      text: string;
+    };
+    careers: {
+      alt: string;
+      text: string;
+    };
+    home: {
+      alt: string;
+      text: string;
+    };
   };
 }
 
@@ -232,23 +316,20 @@ export const translations: Record<Language, Translations> = {
         description: "Líderes mundiales en ingeniería",
       },
       services: {
-        title: "NUESTROS SERVICIOS",
-        subtitle: "SOLUCIONES INTEGRALES DE INGENIERÍA",
-        description: "Desde el diseño hasta la implementación",
+        title: "SERVICIOS DE INGENIERÍA",
+        subtitle: "UNA SOLA PASIÓN, MÚLTIPLES SECTORES",
+        description: "Soporte para el ciclo de vida completo del producto",
       },
       careers: {
         title: "OPORTUNIDADES PROFESIONALES",
         subtitle: "DESARROLLA TU CARRERA CON NOSOTROS",
         description: "Miles de ingenieros eligen Segula cada año",
       },
-    },
-    mainTitle: {
-      eachYear: "CADA AÑO",
-      atSegula: "EN SEGULA TECHNOLOGIES,",
-      weStartStory: "COMENZAMOS UNA HISTORIA CON",
-      thousandsNew: "MILES DE NUEVOS",
-      engineers: "INGENIEROS.",
-      whyNotYou: "¿POR QUÉ NO TÚ?",
+      analysisSimulation: {
+        title: "ANÁLISIS Y SIMULACIÓN NUMÉRICA",
+        subtitle: "UNA SOLA PASIÓN, MÚLTIPLES SECTORES",
+        description: "Análisis y simulación numérica",
+      },
     },
     form: {
       placeholders: {
@@ -304,6 +385,104 @@ export const translations: Record<Language, Translations> = {
       twitter: "Twitter",
       instagram: "Instagram",
       fileUpload: "Subir archivo de currículum",
+    },
+
+    imageContainer: {
+      fallbackText: "Únete a miles de ingenieros en Segula Technologies",
+      loading: "Cargando imagen...",
+      error: "Error al cargar imagen",
+      section: "Sección",
+    },
+
+    aboutSection: {
+      bulletTitle: "NOSOTROS",
+      bulletAlt: "acerca de nosotros",
+      titleBold: "SOMOS EL CORAZÓN",
+      titleNormal: "DE LAS INNOVACIONES",
+      paragraph1:
+        "Proporcionamos soluciones innovadoras combinando con precisión la excelencia en el diseño con un compromiso hacia un servicio al cliente excepcional.",
+      paragraph2:
+        "Lo que es particularmente notable en todos los proyectos considerados para nuestro éxito es la forma en que la investigación e innovación se impulsa a través de la colaboración. Nuestro equipo reúne un amplio conjunto de habilidades y experiencias: vinculan la innovación fundamental con la práctica de ingeniería.",
+      imageAlt: "Motor de ingeniería de Segula Technologies",
+      learnMore: "Conoce más",
+    },
+
+    serviceCard: {
+      features: "Características",
+      close: "Cerrar",
+      learnMore: "Conoce más",
+      imageError: "Error al cargar imagen",
+    },
+
+    servicesSection: {
+      bulletTitle: "SERVICIOS",
+      bulletAlt: "nuestros servicios",
+      title: "Nuestros Servicios",
+      subtitle: "Soluciones de ingeniería especializadas para industrias clave",
+      noServiceSelected: "Selecciona un servicio para ver más detalles",
+      services: {
+        automotive: {
+          title: "AUTOMOTRIZ",
+          description:
+            "Ingeniería de productos con una evaluación completa de todo el proyecto desde la conceptualización hasta el diseño final.",
+          features: [
+            "Ingeniería de Procesos: Experiencia en la definición completa del ensamblaje de chasis incluyendo mecánica de mecanizado, inyección de plástico, etc.",
+            "Simulaciones CAE/CFD.",
+          ],
+          imageAlt: "Ingeniería automotriz",
+        },
+        energy: {
+          title: "ENERGÍA",
+          description:
+            "Experiencia en diseño, construcción e implementación de plantas de energía eólica, solar y cogeneración.",
+          features: [
+            "Diseño de plantas de energía renovable",
+            "Gestión de proyectos energéticos",
+            "Optimización de sistemas de energía",
+          ],
+          imageAlt: "Infraestructura de energía renovable",
+        },
+        aerospace: {
+          title: "AEROESPACIAL",
+          description:
+            "Soluciones avanzadas de ingeniería para la industria aeroespacial, desde sistemas de propulsión hasta estructuras aeronáuticas.",
+          features: [
+            "Diseño de sistemas aeronáuticos",
+            "Análisis estructural avanzado",
+            "Certificación aeroespacial",
+          ],
+          imageAlt: "Ingeniería aeroespacial",
+        },
+      },
+    },
+
+    header: {
+      groupSite: "Group Site",
+      groupSiteAria: "Visitar sitio del grupo Segula",
+      logoAria: "Ir a página de inicio",
+    },
+
+    imageSections: {
+      about: {
+        alt: "Equipo de ingenieros de Segula Technologies trabajando en proyectos innovadores",
+        text: "En Segula Technologies, cada año comenzamos una historia con miles de nuevos ingenieros. Únete a nuestro equipo global de expertos y desarrolla tu carrera en un entorno de innovación y excelencia técnica.",
+      },
+      engineering: {
+        alt: "Ingeniería avanzada y desarrollo tecnológico en Segula Technologies",
+        text: "Desarrollamos soluciones de ingeniería de vanguardia en sectores clave como automotriz, aeroespacial, energía y manufactura. Nuestros ingenieros trabajan en los proyectos más desafiantes del mundo.",
+      },
+      innovation: {
+        alt: "Innovación y tecnología del futuro en Segula Technologies",
+        text: "La innovación está en el corazón de todo lo que hacemos. Desde la investigación y desarrollo hasta la implementación de nuevas tecnologías, estamos construyendo el futuro de la ingeniería.",
+      },
+      careers: {
+        alt: "Oportunidades de carrera y crecimiento profesional en Segula Technologies",
+        text: "Tu carrera en Segula Technologies te llevará a lugares que nunca imaginaste. Con presencia en 30 países y proyectos en los sectores más innovadores, las oportunidades son infinitas.",
+      },
+      home: {
+        alt: "Bienvenido a Segula Technologies - Líder mundial en ingeniería",
+        text: "Cada año, en Segula Technologies, comenzamos una historia con miles de nuevos ingenieros. ¿Por qué no tú? Únete a nuestro equipo global y sé parte de la innovación que está transformando el mundo.",
+      },
     },
   },
 
@@ -378,23 +557,20 @@ export const translations: Record<Language, Translations> = {
         description: "Global leaders in engineering",
       },
       services: {
-        title: "OUR SERVICES",
-        subtitle: "COMPREHENSIVE ENGINEERING SOLUTIONS",
-        description: "From design to implementation",
+        title: "ENGINEERING SERVICES",
+        subtitle: "A SINGLE PASSION, MULTIPLE SECTORS",
+        description: "Support for complete product cycle life",
       },
       careers: {
         title: "CAREER OPPORTUNITIES",
         subtitle: "DEVELOP YOUR CAREER WITH US",
         description: "Thousands of engineers choose Segula every year",
       },
-    },
-    mainTitle: {
-      eachYear: "EACH YEAR",
-      atSegula: "AT SEGULA TECHNOLOGIES,",
-      weStartStory: "WE START A STORY WITH",
-      thousandsNew: "THOUSANDS OF NEW",
-      engineers: "ENGINEERS.",
-      whyNotYou: "WHY NOT YOU?",
+      analysisSimulation: {
+        title: "ANALYSIS AND NUMERIC SIMULATION",
+        subtitle: "A SINGLE PASSION, MULTIPLE SECTORS",
+        description: "Analysis and Numeric Simulation",
+      },
     },
     form: {
       placeholders: {
@@ -450,6 +626,104 @@ export const translations: Record<Language, Translations> = {
       twitter: "Twitter",
       instagram: "Instagram",
       fileUpload: "Upload resume file",
+    },
+
+    imageContainer: {
+      fallbackText: "Join thousands of engineers at Segula Technologies",
+      loading: "Loading image...",
+      error: "Error loading image",
+      section: "Section",
+    },
+
+    aboutSection: {
+      bulletTitle: "ABOUT US",
+      bulletAlt: "about us",
+      titleBold: "WE ARE THE HEART",
+      titleNormal: "OF INNOVATIONS",
+      paragraph1:
+        "We provide innovative solutions by precisely blending excellence in design with a commitment to exceptional customer service.",
+      paragraph2:
+        "What is particularly striking across all the projects considered for our success is the way in which research and innovation is driven by collaboration. Our team brings together a broad set of skills and experiences: they link foundational innovation with engineering practice.",
+      imageAlt: "Segula Technologies engineering motor",
+      learnMore: "Learn more",
+    },
+
+    serviceCard: {
+      features: "Features",
+      close: "Close",
+      learnMore: "Learn more",
+      imageError: "Error loading image",
+    },
+
+    servicesSection: {
+      bulletTitle: "SERVICES",
+      bulletAlt: "our services",
+      title: "Our Services",
+      subtitle: "Specialized engineering solutions for key industries",
+      noServiceSelected: "Select a service to see more details",
+      services: {
+        automotive: {
+          title: "AUTOMOTIVE",
+          description:
+            "Product engineering with a complete assessment of the whole project from conceptualization to the final design.",
+          features: [
+            "Process Engineering: Experience in a complete definition of chassis assembly including machining mechanics, plastic injection, etc.",
+            "CAE/CFD Simulations.",
+          ],
+          imageAlt: "Automotive engineering",
+        },
+        energy: {
+          title: "ENERGY",
+          description:
+            "Experience in plant engineering design, construction and launching for wind, solar, and co-generation energy.",
+          features: [
+            "Renewable energy plant design",
+            "Energy project management",
+            "Energy systems optimization",
+          ],
+          imageAlt: "Renewable energy infrastructure",
+        },
+        aerospace: {
+          title: "AEROSPACE",
+          description:
+            "Advanced engineering solutions for the aerospace industry, from propulsion systems to aeronautical structures.",
+          features: [
+            "Aeronautical systems design",
+            "Advanced structural analysis",
+            "Aerospace certification",
+          ],
+          imageAlt: "Aerospace engineering",
+        },
+      },
+    },
+
+    header: {
+      groupSite: "Group Site",
+      groupSiteAria: "Visit Segula group site",
+      logoAria: "Go to home page",
+    },
+
+    imageSections: {
+      about: {
+        alt: "Segula Technologies engineering team working on innovative projects",
+        text: "At Segula Technologies, every year we start a story with thousands of new engineers. Join our global team of experts and develop your career in an environment of innovation and technical excellence.",
+      },
+      engineering: {
+        alt: "Advanced engineering and technological development at Segula Technologies",
+        text: "We develop cutting-edge engineering solutions in key sectors such as automotive, aerospace, energy and manufacturing. Our engineers work on the world's most challenging projects.",
+      },
+      innovation: {
+        alt: "Innovation and future technology at Segula Technologies",
+        text: "Innovation is at the heart of everything we do. From research and development to implementing new technologies, we are building the future of engineering.",
+      },
+      careers: {
+        alt: "Career opportunities and professional growth at Segula Technologies",
+        text: "Your career at Segula Technologies will take you places you never imagined. With presence in 30 countries and projects in the most innovative sectors, opportunities are endless.",
+      },
+      home: {
+        alt: "Welcome to Segula Technologies - Global engineering leader",
+        text: "Each year, at Segula Technologies, we start a story with thousands of new engineers. Why not you? Join our global team and be part of the innovation that is transforming the world.",
+      },
     },
   },
 
@@ -524,9 +798,9 @@ export const translations: Record<Language, Translations> = {
         description: "Leaders mondiaux en ingénierie",
       },
       services: {
-        title: "NOS SERVICES",
-        subtitle: "SOLUTIONS D'INGÉNIERIE COMPLÈTES",
-        description: "De la conception à la mise en œuvre",
+        title: "SERVICES D'INGÉNIERIE",
+        subtitle: "UNE SEULE PASSION, PLUSIEURS SECTEURS",
+        description: "Support pour le cycle de vie complet du produit",
       },
       careers: {
         title: "OPPORTUNITÉS DE CARRIÈRE",
@@ -534,15 +808,11 @@ export const translations: Record<Language, Translations> = {
         description:
           "Des milliers d'ingénieurs choisissent Segula chaque année",
       },
-    },
-
-    mainTitle: {
-      eachYear: "CHAQUE ANNÉE",
-      atSegula: "CHEZ SEGULA TECHNOLOGIES,",
-      weStartStory: "NOUS COMMENÇONS UNE HISTOIRE AVEC",
-      thousandsNew: "DES MILLIERS DE NOUVEAUX",
-      engineers: "INGÉNIEURS.",
-      whyNotYou: "POURQUOI PAS VOUS ?",
+      analysisSimulation: {
+        title: "ANALYSE ET SIMULATION NUMÉRIQUE",
+        subtitle: "UNE SEULE PASSION, PLUSIEURS SECTEURS",
+        description: "Analyse et simulation numérique",
+      },
     },
     form: {
       placeholders: {
@@ -598,6 +868,104 @@ export const translations: Record<Language, Translations> = {
       twitter: "Twitter",
       instagram: "Instagram",
       fileUpload: "Télécharger le fichier CV",
+    },
+
+    imageContainer: {
+      fallbackText: "Rejoignez des milliers d'ingénieurs chez Segula Technologies",
+      loading: "Chargement de l'image...",
+      error: "Erreur de chargement d'image",
+      section: "Section",
+    },
+
+    aboutSection: {
+      bulletTitle: "À PROPOS",
+      bulletAlt: "à propos de nous",
+      titleBold: "NOUS SOMMES LE CŒUR",
+      titleNormal: "DES INNOVATIONS",
+      paragraph1:
+        "Nous fournissons des solutions innovantes en combinant avec précision l'excellence en conception avec un engagement envers un service client exceptionnel.",
+      paragraph2:
+        "Ce qui est particulièrement frappant dans tous les projets considérés pour notre succès, c'est la façon dont la recherche et l'innovation sont motivées par la collaboration. Notre équipe rassemble un large éventail de compétences et d'expériences : elle relie l'innovation fondamentale à la pratique de l'ingénierie.",
+      imageAlt: "Moteur d'ingénierie Segula Technologies",
+      learnMore: "En savoir plus",
+    },
+
+    serviceCard: {
+      features: "Caractéristiques",
+      close: "Fermer",
+      learnMore: "En savoir plus",
+      imageError: "Erreur de chargement d'image",
+    },
+
+    servicesSection: {
+      bulletTitle: "SERVICES",
+      bulletAlt: "nos services",
+      title: "Nos Services",
+      subtitle: "Solutions d'ingénierie spécialisées pour les industries clés",
+      noServiceSelected: "Sélectionnez un service pour voir plus de détails",
+      services: {
+        automotive: {
+          title: "AUTOMOBILE",
+          description:
+            "Ingénierie de produits avec une évaluation complète de l'ensemble du projet depuis la conceptualisation jusqu'à la conception finale.",
+          features: [
+            "Ingénierie des Processus: Expérience dans la définition complète de l'assemblage de châssis incluant la mécanique d'usinage, l'injection plastique, etc.",
+            "Simulations CAE/CFD.",
+          ],
+          imageAlt: "Ingénierie automobile",
+        },
+        energy: {
+          title: "ÉNERGIE",
+          description:
+            "Expérience en conception, construction et lancement d'installations d'ingénierie pour l'énergie éolienne, solaire et de cogénération.",
+          features: [
+            "Conception d'installations d'énergie renouvelable",
+            "Gestion de projets énergétiques",
+            "Optimisation des systèmes énergétiques",
+          ],
+          imageAlt: "Infrastructure d'énergie renouvelable",
+        },
+        aerospace: {
+          title: "AÉROSPATIALE",
+          description:
+            "Solutions d'ingénierie avancées pour l'industrie aérospatiale, des systèmes de propulsion aux structures aéronautiques.",
+          features: [
+            "Conception de systèmes aéronautiques",
+            "Analyse structurelle avancée",
+            "Certification aérospatiale",
+          ],
+          imageAlt: "Ingénierie aérospatiale",
+        },
+      },
+    },
+
+    header: {
+      groupSite: "Group Site",
+      groupSiteAria: "Visiter le site du groupe Segula",
+      logoAria: "Aller à la page d'accueil",
+    },
+
+    imageSections: {
+      about: {
+        alt: "Équipe d'ingénieurs Segula Technologies travaillant sur des projets innovants",
+        text: "Chez Segula Technologies, chaque année nous commençons une histoire avec des milliers de nouveaux ingénieurs. Rejoignez notre équipe mondiale d'experts et développez votre carrière dans un environnement d'innovation et d'excellence technique.",
+      },
+      engineering: {
+        alt: "Ingénierie avancée et développement technologique chez Segula Technologies",
+        text: "Nous développons des solutions d'ingénierie de pointe dans des secteurs clés tels que l'automobile, l'aérospatiale, l'énergie et la fabrication. Nos ingénieurs travaillent sur les projets les plus difficiles au monde.",
+      },
+      innovation: {
+        alt: "Innovation et technologie du futur chez Segula Technologies",
+        text: "L'innovation est au cœur de tout ce que nous faisons. De la recherche et développement à la mise en œuvre de nouvelles technologies, nous construisons l'avenir de l'ingénierie.",
+      },
+      careers: {
+        alt: "Opportunités de carrière et croissance professionnelle chez Segula Technologies",
+        text: "Votre carrière chez Segula Technologies vous mènera à des endroits que vous n'avez jamais imaginés. Avec une présence dans 30 pays et des projets dans les secteurs les plus innovants, les opportunités sont infinies.",
+      },
+      home: {
+        alt: "Bienvenue chez Segula Technologies - Leader mondial en ingénierie",
+        text: "Chaque année, chez Segula Technologies, nous commençons une histoire avec des milliers de nouveaux ingénieurs. Pourquoi pas vous ? Rejoignez notre équipe mondiale et faites partie de l'innovation qui transforme le monde.",
+      },
     },
   },
 };

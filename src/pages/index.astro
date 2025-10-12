@@ -31,19 +31,20 @@ const aboutURL = getRelativeLocaleUrl('es', 'about');
     <MainHeader 
       currentLocale={currentLocale}
       currentPath={currentPath}
-      client:load 
+      client:only 
     />
     
     <!-- Menu principal -->
     <MainMenu 
       locale={currentLocale}
-      client:load 
+      client:only 
     />
 
     <!-- Contenedor de imagen principal -->
-    <MainImageContainer 
-      section="about" 
+    <MainImageContainer
+      section="about"
       locale={currentLocale}
+       client:only="react"
     />
     
     <!-- Botón de scroll -->
@@ -51,28 +52,29 @@ const aboutURL = getRelativeLocaleUrl('es', 'about');
 
     <!-- Contenedor de título con traducciones -->
     <TitleContainer 
+      section='business'
       locale={currentLocale}
-      client:load 
+      client:only 
     />
     
     <!-- Sección about con traducciones -->
     <AboutSection 
       locale={currentLocale}
-      client:load 
+      client:only 
     />
     
     <!-- Sección de servicios -->
     <ServicesSection 
       locale={currentLocale}
-      client:load 
+      client:only 
     />
     
     <JobApplicationForm
     locale={currentLocale}
-    client:load
+    client:only
   />
 
-  <Footer locale={currentLocale} client:load />
+  <Footer locale={currentLocale} client:only />
   </container>
 </Layout>
 

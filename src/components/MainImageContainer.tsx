@@ -32,16 +32,9 @@ const MainImageContainer: React.FC<Props> = ({
     [validSection, locale]
   );
 
-  // Textos de fallback por idioma
-  const fallbackTexts = {
-    es: "Únete a miles de ingenieros en Segula Technologies",
-    en: "Join thousands of engineers at Segula Technologies",
-    fr: "Rejoignez des milliers d'ingénieurs chez Segula Technologies",
-  };
-
-  const imgSrc = sectionData?.image ?? "";
+  const imgSrc = sectionData?.image?.src ?? "";
   const imgAlt = sectionData?.alt ?? `Segula Technologies - ${validSection}`;
-  const displayText = sectionData?.text ?? fallbackTexts[locale];
+  const displayText = sectionData?.text ?? sectionData?.fallbackText;
 
   const handleImageLoad = () => {
     setImageLoaded(true);
@@ -52,29 +45,10 @@ const MainImageContainer: React.FC<Props> = ({
     console.warn(`Error loading image: ${imgSrc} for section: ${validSection}`);
   };
 
-  // Loading/Error states labels por idioma
-  const stateLabels = {
-    loading: {
-      es: "Cargando imagen...",
-      en: "Loading image...",
-      fr: "Chargement de l'image...",
-    },
-    error: {
-      es: "Error al cargar imagen",
-      en: "Error loading image",
-      fr: "Erreur de chargement d'image",
-    },
-    section: {
-      es: "Sección",
-      en: "Section",
-      fr: "Section",
-    },
-  };
-
   return (
     <section
       className={clsx("relative w-screen md:max-h-[650px]", className)}
-      aria-label={`${stateLabels.section[locale]}: ${validSection}`}
+      aria-label={`${sectionData?.section}: ${validSection}`}
     >
       {/* Gradiente overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/100 via-black/20 to-transparent z-10"></div>
@@ -87,7 +61,7 @@ const MainImageContainer: React.FC<Props> = ({
             <div className="text-center text-white">
               <div className="loading-spinner mx-auto mb-2"></div>
               <p className="text-sm opacity-75" aria-live="polite">
-                {stateLabels.loading[locale]}
+                {sectionData?.loading}
               </p>
             </div>
           </div>
@@ -110,7 +84,7 @@ const MainImageContainer: React.FC<Props> = ({
                 />
               </svg>
               <p className="text-sm opacity-75" role="alert">
-                {stateLabels.error[locale]}
+                {sectionData?.error}
               </p>
             </div>
           </div>
@@ -143,7 +117,6 @@ const MainImageContainer: React.FC<Props> = ({
         </div>
       )}
 
-      {/* Indicador de sección (opcional) */}
       <div className="absolute top-4 left-4 z-20">
         <span className="bg-black/50 text-white px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm">
           {validSection.charAt(0).toUpperCase() + validSection.slice(1)}

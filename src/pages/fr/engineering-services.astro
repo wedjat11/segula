@@ -22,17 +22,18 @@ const currentPath = Astro.url.pathname;
     <MainHeader
       currentLocale={currentLocale}
       currentPath={currentPath}
-      client:load
+      client:only
     />
 
     <MainMenu
       locale={currentLocale}
-      client:load
+      client:only
     />
 
     <MainImageContainer
-      section="about"
+      section="engineering"
       locale={currentLocale}
+      client:only
     />
 
     <ScrollButton />
@@ -40,15 +41,15 @@ const currentPath = Astro.url.pathname;
     <TitleContainer
       locale={currentLocale}
       section="services"
-      client:load
+      client:only
     />
 
     <EngineeringSection
       locale={currentLocale}
-      client:load
+      client:only
     />
 
-    <Footer locale={currentLocale} client:load />
+    <Footer locale={currentLocale} client:only />
   </container>
 </Layout>
 

@@ -268,7 +268,7 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
     </main>
     
     <!-- WhatsApp Float -->
-    <WhatsAppFloat client:load />
+    <WhatsAppFloat client:only />
     
     <!-- Structured data para mejor SEO -->
     <script type="application/ld+json" set:html={JSON.stringify({
