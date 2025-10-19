@@ -29,7 +29,7 @@ const AboutSection: React.FC<Props> = ({ locale, className = "" }) => {
       />
 
       <div className="w-full flex flex-col md:flex-row gap-14">
-        <div className="w-full md:w-1/2 md:h-[370px] relative overflow-hidden rounded-lg">
+        <div className="w-full md:w-1/2  relative overflow-hidden rounded-lg">
           {!imageLoaded && !imageError && (
             <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
               <div className="loading-spinner"></div>

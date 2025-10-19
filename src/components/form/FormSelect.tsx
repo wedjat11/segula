@@ -32,7 +32,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
     <div className={className}>
       <div className="relative">
         {icon && (
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400">
+          <div className="absolute left-4 lg:left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 text-primary/60">
             {icon}
           </div>
         )}
@@ -41,23 +41,25 @@ export const FormSelect: React.FC<FormSelectProps> = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className={`w-full ${
-            icon ? "pl-10" : "pl-4"
-          } pr-8 py-3 rounded-full border ${
-            error ? "border-red-500" : "border-gray-300"
-          } bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none cursor-pointer`}
+            icon ? "pl-11 lg:pl-14" : "pl-5 lg:pl-6"
+          } pr-10 lg:pr-12 py-4 lg:py-5 text-base lg:text-lg rounded-full border-2 ${
+            error ? "border-red-500" : "border-primary/30"
+          } bg-white/95 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none cursor-pointer transition-all duration-300 ${
+            !value ? "text-gray-400" : "text-gray-900"
+          }`}
           disabled={disabled}
           aria-invalid={!!error}
           aria-describedby={error ? `${selectId}-error` : undefined}
         >
-          <option value="">{placeholder}</option>
+          <option value="" className="text-gray-400">{placeholder}</option>
           {options.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option key={option.value} value={option.value} className="text-gray-900">
               {option.label}
             </option>
           ))}
         </select>
         <svg
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"
+          className="absolute right-4 lg:right-5 top-1/2 transform -translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 text-primary/60 pointer-events-none"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -74,7 +76,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
       {error && (
         <p
           id={`${selectId}-error`}
-          className="mt-1 text-sm text-red-500 error-message"
+          className="mt-2 text-sm lg:text-base text-red-500 error-message"
           role="alert"
         >
           {error}

@@ -1,13 +1,11 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Layout from '../../layouts/Layout.astro';
-import MainHeader from '@/components/MainHeader';
-import MainMenu from '@/components/MainMenu';
-import MainImageContainer from '@/components/MainImageContainer';
+import HeroImageSection from '@/components/HeroImageSection';
 import TitleContainer from '@/components/TitleContainer';
-import ScrollButton from '@/components/ScrollButton';
 import AnalysisSection from '@/components/AnalysisSection';
 import Footer from '@/components/Footer';
+import SmoothScroll from '@/components/SmoothScroll';
 
 const currentLocale = 'en';
 const currentPath = Astro.url.pathname;
@@ -18,25 +16,15 @@ const currentPath = Astro.url.pathname;
   lang={currentLocale}
   currentPath={currentPath}
 >
+  <SmoothScroll client:load />
+
   <container class="flex flex-col gap-10">
-    <MainHeader
-      currentLocale={currentLocale}
-      currentPath={currentPath}
-      client:only
-    />
-
-    <MainMenu
-      locale={currentLocale}
-      client:only
-    />
-
-    <MainImageContainer
+    <HeroImageSection
       section="innovation"
       locale={currentLocale}
-      client:only
+      currentPath={currentPath}
+      client:only="react"
     />
-
-    <ScrollButton />
 
     <TitleContainer
       locale={currentLocale}

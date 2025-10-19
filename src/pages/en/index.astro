@@ -1,81 +1,70 @@
 ---
-// src/pages/index.astro (Página principal en español)
+// src/pages/en/index.astro (Página principal en inglés)
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Layout from '../../layouts/Layout.astro';
-import MainHeader from '@/components/MainHeader';
-import MainMenu from '@/components/MainMenu';
-import MainImageContainer from '@/components/MainImageContainer';
+import HeroImageSection from '@/components/HeroImageSection';
 import TitleContainer from '@/components/TitleContainer';
-import ScrollButton from '@/components/ScrollButton';
-import WhiteBullet from '@/components/WhiteBullet';
 import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
 import JobApplicationForm from '@/components/JobApplicationForm';
 import Footer from '@/components/Footer';
+import SmoothScroll from '@/components/SmoothScroll';
 
 // Configuración del idioma para esta página
 const currentLocale = 'en';
 const currentPath = Astro.url.pathname;
 
 // URLs localizadas para navegación
-const aboutURL = getRelativeLocaleUrl('es', 'about');
+const aboutURL = getRelativeLocaleUrl('en', 'about');
 ---
 
-<Layout 
-  title="Segula Technologies - Únete a nuestro equipo de ingenieros" 
+<Layout
+  title="Segula Technologies - Join our team of engineers"
   lang={currentLocale}
   currentPath={currentPath}
 >
-  <container class="flex flex-col gap-10">
-    <!-- Header con selector de idioma -->
-    <MainHeader 
-      currentLocale={currentLocale}
-      currentPath={currentPath}
-      client:only 
-    />
-    
-    <!-- Menu principal -->
-    <MainMenu 
-      locale={currentLocale}
-      client:only 
-    />
+  <SmoothScroll client:load />
 
-    <!-- Contenedor de imagen principal -->
-    <MainImageContainer
+  <container class="flex flex-col gap-10">
+    <!-- Hero Image Section (100vh) - Incluye Header, Menu, Imagen de fondo y botón de scroll -->
+    <HeroImageSection
       section="about"
       locale={currentLocale}
-      client:only
+      currentPath={currentPath}
+      client:only="react"
     />
-    
-    <!-- Botón de scroll -->
-    <ScrollButton />
 
     <!-- Contenedor de título con traducciones -->
-    <TitleContainer 
-      locale={currentLocale}
+    <TitleContainer
       section='business'
-      client:only 
-    />
-    
-    <!-- Sección about con traducciones -->
-    <AboutSection 
-      locale={currentLocale}
-      client:only 
-    />
-    
-    <!-- Sección de servicios -->
-    <ServicesSection 
-      locale={currentLocale}
-      client:only 
-    />
-    
-    <!-- Formulario de aplicación -->
-    <!-- <JobApplicationForm
       locale={currentLocale}
       client:only
-    /> -->
+    />
 
+   <div class="flex flex-col">
+     <!-- Sección about con traducciones -->
+    <AboutSection
+      locale={currentLocale}
+      client:only="react"
+    />
+
+    <!-- Sección de servicios -->
+    <ServicesSection
+      locale={currentLocale}
+      client:only
+    />
+   </div>
+
+    <!-- Formulario de aplicación -->
+   <div>
+     <JobApplicationForm
+      locale={currentLocale}
+      client:load
+    />
+
+    <!-- Footer -->
     <Footer locale={currentLocale} client:only />
+   </div>
   </container>
 </Layout>
 

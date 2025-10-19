@@ -27,7 +27,7 @@ export const FormInput: React.FC<FormInputProps> = ({
     <div className={className}>
       <div className="relative">
         {icon && (
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400">
+          <div className="absolute left-4 lg:left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 text-primary/60">
             {icon}
           </div>
         )}
@@ -38,10 +38,10 @@ export const FormInput: React.FC<FormInputProps> = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className={`w-full ${
-            icon ? "pl-10" : "pl-4"
-          } pr-4 py-3 rounded-full border form-input ${
-            error ? "border-red-500" : "border-gray-300"
-          } bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+            icon ? "pl-11 lg:pl-14" : "pl-5 lg:pl-6"
+          } pr-5 lg:pr-6 py-4 lg:py-5 text-base lg:text-lg rounded-full border-2 form-input ${
+            error ? "border-red-500" : "border-primary/30"
+          } bg-white/95 backdrop-blur-sm placeholder:text-gray-400 placeholder:text-base lg:placeholder:text-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300`}
           disabled={disabled}
           aria-invalid={!!error}
           aria-describedby={error ? `${inputId}-error` : undefined}
@@ -50,7 +50,7 @@ export const FormInput: React.FC<FormInputProps> = ({
       {error && (
         <p
           id={`${inputId}-error`}
-          className="mt-1 text-sm text-red-500 error-message"
+          className="mt-2 text-sm lg:text-base text-red-500 error-message"
           role="alert"
         >
           {error}

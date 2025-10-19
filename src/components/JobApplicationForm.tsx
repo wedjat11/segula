@@ -254,10 +254,10 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
 
   return (
     <section
-      className={`min-h-screen bg-gradient-to-br from-slate-900 to-blue-900 flex items-center justify-center p-4 ${className}`}
+      className={`min-h-screen bg-primary flex items-center justify-center p-6 lg:p-8 ${className}`}
       aria-labelledby="form-title"
     >
-      <div className="w-full max-w-7xl grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Columna izquierda - Hero */}
         <HeroSection locale={locale} />
 
@@ -271,7 +271,7 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
             <FormMessage type="error" message={t.messages.error} />
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+          <form onSubmit={handleSubmit} className="space-y-5 lg:space-y-6" noValidate>
             {/* Nombre y Apellido */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FormInput
@@ -281,6 +281,16 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
                 onChange={(value) => updateField("nombre", value)}
                 error={errors.nombre}
                 disabled={isSubmitting}
+                icon={<UserIcon />}
+              />
+              <FormInput
+                type="text"
+                placeholder={t.form.placeholders.apellido}
+                value={formData.apellido}
+                onChange={(value) => updateField("apellido", value)}
+                error={errors.apellido}
+                disabled={isSubmitting}
+                icon={<UserIcon />}
               />
             </div>
 
@@ -331,7 +341,7 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-5 lg:py-6 text-base lg:text-lg bg-primary hover:bg-primary/80 text-white font-semibold rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center">

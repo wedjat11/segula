@@ -75,7 +75,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   return (
     <div className={`w-fit ${className}`}>
       <Select value={currentLocale} onValueChange={handleLanguageChange}>
-        <SelectTrigger className="w-full cursor-pointer text-white bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-colors focus:ring-2 focus:ring-white/30">
+        <SelectTrigger className="w-full cursor-pointer text-white backdrop-blur-md bg-primary/40 border border-primary/50 hover:bg-black/30 hover:border-white/20 transition-all duration-300 rounded-full shadow-lg focus:ring-2 focus:ring-white/30">
           <SelectValue
             placeholder="Seleccionar idioma"
             aria-label={`Idioma actual: ${currentLang?.name}`}
@@ -95,12 +95,12 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
           </SelectValue>
         </SelectTrigger>
 
-        <SelectContent className="bg-white/95 backdrop-blur-md border-white/20">
+        <SelectContent className="backdrop-blur-md bg-primary/90 border border-primary/50 text-white">
           {languages.map((lang) => (
             <SelectItem
               key={lang.code}
               value={lang.code}
-              className="cursor-pointer hover:bg-gray-100/50 focus:bg-gray-100/50 transition-colors"
+              className="cursor-pointer text-white hover:bg-black/40 focus:bg-black/50 transition-all duration-300"
             >
               <div className="flex items-center space-x-2">
                 <span
@@ -110,7 +110,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
                 >
                   {lang.flag}
                 </span>
-                <span className="text-sm font-medium text-gray-900">
+                <span className="text-sm font-medium">
                   {lang.name}
                 </span>
               </div>

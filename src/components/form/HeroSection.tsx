@@ -24,39 +24,39 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
   return (
     <div
-      className={`text-white space-y-6 text-center lg:text-left ${className}`}
+      className={`text-white space-y-6 lg:space-y-8 text-center lg:text-left ${className}`}
     >
       <h1
         id="form-title"
-        className="text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight"
+        className="text-4xl lg:text-5xl xl:text-7xl font-bold leading-tight"
       >
-        <span className="block text-gray-300 text-lg lg:text-xl font-normal mb-4">
+        <span className="block text-white/90 text-xl lg:text-2xl font-normal mb-4 lg:mb-6">
           {t.mainTitle.eachYear}
         </span>
-        <span className="block">{t.mainTitle.atSegula}</span>
-        <span className="block text-blue-300">{t.mainTitle.weStartStory}</span>
-        <span className="block">{t.mainTitle.thousandsNew}</span>
-        <span className="block text-blue-300">{t.mainTitle.engineers}</span>
-        <span className="block mt-6 text-2xl lg:text-4xl text-yellow-400">
+        <span className="block text-white">{t.mainTitle.atSegula}</span>
+        <span className="block text-white">{t.mainTitle.weStartStory}</span>
+        <span className="block text-white">{t.mainTitle.thousandsNew}</span>
+        <span className="block text-white">{t.mainTitle.engineers}</span>
+        <span className="block mt-6 lg:mt-8 text-3xl lg:text-4xl xl:text-5xl text-white">
           {t.mainTitle.whyNotYou}
         </span>
       </h1>
 
       {/* Redes sociales */}
       <div
-        className="flex justify-center lg:justify-start space-x-4 pt-8"
+        className="flex justify-center lg:justify-start pt-8 lg:pt-10"
         aria-label={t.aria.socialMedia}
       >
-        <div className="bg-white rounded-full p-4 flex space-x-6">
+        <div className="w-full backdrop-blur-md bg-white/95 border border-white/30 rounded-full p-4 lg:p-5 flex justify-evenly space-x-6 lg:space-x-8 shadow-lg">
           <a
             href={socialLinks.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-900 hover:text-blue-600 transition-colors"
+            className="text-primary hover:text-primary/70 transition-all duration-300"
             aria-label={t.aria.linkedin}
           >
             <svg
-              className="w-6 h-6"
+              className="w-7 h-7 lg:w-8 lg:h-8"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -68,11 +68,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             href={socialLinks.facebook}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-900 hover:text-blue-600 transition-colors"
+            className="text-primary hover:text-primary/70 transition-all duration-300"
             aria-label={t.aria.facebook}
           >
             <svg
-              className="w-6 h-6"
+              className="w-7 h-7 lg:w-8 lg:h-8"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -84,11 +84,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             href={socialLinks.twitter}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-900 hover:text-blue-600 transition-colors"
+            className="text-primary hover:text-primary/70 transition-all duration-300"
             aria-label={t.aria.twitter}
           >
             <svg
-              className="w-6 h-6"
+              className="w-7 h-7 lg:w-8 lg:h-8"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -100,11 +100,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             href={socialLinks.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-900 hover:text-blue-600 transition-colors"
+            className="text-primary hover:text-primary/70 transition-all duration-300"
             aria-label={t.aria.instagram}
           >
             <svg
-              className="w-6 h-6"
+              className="w-7 h-7 lg:w-8 lg:h-8"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"

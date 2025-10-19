@@ -61,7 +61,7 @@ const ServicesSection: React.FC<Props> = ({ locale, className = "" }) => {
 
   return (
     <section
-      className={`relative min-h-screen py-12 lg:py-20 w-11/12 mx-auto ${className}`}
+      className={`py-12 lg:py-20 w-11/12 mx-auto ${className}`}
       aria-labelledby="services-title"
     >
       <div className="w-11/12 mx-auto px-4">

@@ -92,6 +92,16 @@ export interface Translations {
     };
   };
 
+  // Título principal del formulario
+  mainTitle: {
+    eachYear: string;
+    atSegula: string;
+    weStartStory: string;
+    thousandsNew: string;
+    engineers: string;
+    whyNotYou: string;
+  };
+
   // Formulario
   form: {
     placeholders: {
@@ -303,6 +313,14 @@ export const translations: Record<Language, Translations> = {
         title: "CFD - DINÁMICA DE FLUIDOS",
         description: "Análisis computacional de fluidos para optimizar el flujo de aire, agua y otros fluidos. Mejoramos la aerodinámica, refrigeración y eficiencia energética mediante simulaciones avanzadas.",
       },
+    },
+    mainTitle: {
+      eachYear: "Cada año,",
+      atSegula: "en Segula Technologies",
+      weStartStory: "comenzamos una historia",
+      thousandsNew: "con miles de nuevos",
+      engineers: "ingenieros",
+      whyNotYou: "¿Por qué no tú?",
     },
     sectionTitles: {
       business: {
@@ -545,6 +563,14 @@ export const translations: Record<Language, Translations> = {
         description: "Computational fluid analysis to optimize the flow of air, water and other fluids. We improve aerodynamics, cooling and energy efficiency through advanced simulations.",
       },
     },
+    mainTitle: {
+      eachYear: "Each year,",
+      atSegula: "at Segula Technologies",
+      weStartStory: "we start a story",
+      thousandsNew: "with thousands of new",
+      engineers: "engineers",
+      whyNotYou: "Why not you?",
+    },
     sectionTitles: {
       business: {
         title: "BUSINESS SECTORS",
@@ -785,6 +811,14 @@ export const translations: Record<Language, Translations> = {
         title: "CFD - DYNAMIQUE DES FLUIDES",
         description: "Analyse computationnelle des fluides pour optimiser l'écoulement de l'air, de l'eau et d'autres fluides. Nous améliorons l'aérodynamique, le refroidissement et l'efficacité énergétique grâce à des simulations avancées.",
       },
+    },
+    mainTitle: {
+      eachYear: "Chaque année,",
+      atSegula: "chez Segula Technologies",
+      weStartStory: "nous commençons une histoire",
+      thousandsNew: "avec des milliers de nouveaux",
+      engineers: "ingénieurs",
+      whyNotYou: "Pourquoi pas vous ?",
     },
     sectionTitles: {
       business: {

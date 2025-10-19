@@ -4,6 +4,8 @@ import { translations } from "./translations";
 import aboutBg from "../assets/sections/about-bg.webp";
 import motorImg from "../assets/motor.webp";
 import backgroundSvg from "../assets/background.svg";
+import enginerringImg from "../assets/engineering.jpg";
+import analysisSimulationImg from "../assets/analysis.png";
 
 export interface ImageSection {
   image: ImageMetadata;
@@ -14,10 +16,10 @@ export const imageSections: Record<string, ImageSection> = {
     image: aboutBg,
   },
   engineering: {
-    image: motorImg,
+    image: enginerringImg,
   },
   innovation: {
-    image: backgroundSvg,
+    image: analysisSimulationImg,
   },
   careers: {
     image: aboutBg,

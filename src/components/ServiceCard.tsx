@@ -177,17 +177,6 @@ const ServiceCard: React.FC<Props> = ({
           </button>
         </div>
       </div>
-
-      {/* Indicador de estado activo */}
-      {isActive && (
-        <div className="absolute top-4 left-4 z-20">
-          <div
-            className={`w-3 h-3 rounded-full ${
-              service.bulletColor || "bg-white"
-            } shadow-lg`}
-          ></div>
-        </div>
-      )}
     </div>
   );
 };

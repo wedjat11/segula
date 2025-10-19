@@ -27,12 +27,12 @@ function MobileMenu({ locale }: MobileMenuProps) {
   const t = useTranslations(locale);
 
   return (
-    <div className="w-full bg-primary text-white rounded-full">
+    <div className="w-full backdrop-blur-md bg-primary/40 border border-primary/50 rounded-full shadow-lg">
       <div className="container mx-auto px-4 py-3 text-white">
         <Popover>
           <PopoverTrigger asChild>
             <button
-              className="text-white px-6 py-3 rounded-md flex items-center w-full font-semibold justify-between hover:bg-white/10 transition-colors"
+              className="text-white px-6 py-3 rounded-md flex items-center w-full font-semibold justify-between hover:bg-black/30 transition-all duration-300"
               aria-label={`${t.menu.menu} - ${t.menu.aboutUs}`}
             >
               <span>{t.menu.aboutUs}</span>
@@ -53,7 +53,7 @@ function MobileMenu({ locale }: MobileMenuProps) {
             </button>
           </PopoverTrigger>
 
-          <PopoverContent className="w-screen bg-primary text-white mx-auto mt-2 p-0 border-0 px-4">
+          <PopoverContent className="w-screen backdrop-blur-md bg-primary/40 border border-primary/50 text-white mx-auto mt-2 p-0 px-4">
             <nav
               className="rounded-lg overflow-hidden"
               role="navigation"
@@ -63,14 +63,14 @@ function MobileMenu({ locale }: MobileMenuProps) {
                 <a
                   key={index}
                   href={getLocalizedUrl(locale, link.url)}
-                  className="block px-6 py-4 hover:bg-white/10 transition-colors focus:bg-white/20 focus:outline-none"
+                  className="block px-6 py-4 hover:bg-black/30 transition-all duration-300 focus:bg-black/40 focus:outline-none"
                   role="menuitem"
                 >
                   {t.menu[link.nameKey].toUpperCase()}
                 </a>
               ))}
             </nav>
-            <PopoverArrow className="fill-primary" />
+            <PopoverArrow className="fill-primary/40" />
           </PopoverContent>
         </Popover>
       </div>
@@ -86,19 +86,19 @@ function DesktopMenu({ locale }: DesktopMenuProps) {
   const t = useTranslations(locale);
 
   return (
-    <div className="w-full bg-primary text-white">
+    <div className="w-full backdrop-blur-md bg-primary/70 border border-primary/80 shadow-lg">
       <div className="container mx-auto px-4 py-4">
         <nav
           className="flex justify-center"
           role="navigation"
           aria-label={`${t.menu.menu} principal`}
         >
-          <div className="flex gap-8 flex-wrap justify-center">
+          <div className="flex gap-2 flex-wrap justify-center">
             {menuLinks.map((link, index) => (
               <a
                 key={index}
                 href={getLocalizedUrl(locale, link.url)}
-                className="px-6 py-3 rounded-md hover:bg-white/10 hover:text-white transition-all duration-300 font-medium text-center whitespace-nowrap focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30"
+                className="px-6 py-3 rounded-full text-white hover:bg-primary hover:shadow-lg transition-all duration-300 font-medium text-center whitespace-nowrap focus:bg-black/40 focus:outline-none focus:ring-2 focus:ring-white/30 border border-transparent hover:border-white/20"
                 role="menuitem"
               >
                 {t.menu[link.nameKey].toUpperCase()}

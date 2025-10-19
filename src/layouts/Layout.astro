@@ -133,12 +133,33 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
       html {
         scroll-behavior: smooth;
       }
-      
+
+      html.lenis {
+        height: auto;
+      }
+
+      .lenis.lenis-smooth {
+        scroll-behavior: auto;
+      }
+
+      .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+
+      .lenis.lenis-stopped {
+        overflow: hidden;
+      }
+
+      .lenis.lenis-scrolling iframe {
+        pointer-events: none;
+      }
+
       body {
         background-color: #101619;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         line-height: 1.6;
         color: #ffffff;
+        overflow-x: hidden;
       }
       
       /* Loading spinner styles */
