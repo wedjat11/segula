@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import HeroImageSection from '@/components/HeroImageSection';
 import TitleContainer from '@/components/TitleContainer';
 import EngineeringSection from '@/components/EngineeringSection';
+import EngineeringServicesSection from '@/components/EngineeringServicesSection';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
 
@@ -32,7 +33,9 @@ const currentPath = Astro.url.pathname;
       client:only
     />
 
-    <EngineeringSection
+  
+
+    <EngineeringServicesSection
       locale={currentLocale}
       client:only
     />

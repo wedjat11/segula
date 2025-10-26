@@ -64,6 +64,34 @@ export interface Translations {
       description: string;
     };
   };
+
+  // Analysis Cards
+  analysisCards: {
+    stress: {
+      label: string;
+      text: string;
+    };
+    nvh: {
+      label: string;
+      text: string;
+    };
+    thermal: {
+      label: string;
+      text: string;
+    };
+    crash: {
+      label: string;
+      text: string;
+    };
+    cfd: {
+      label: string;
+      text: string;
+    };
+    optimization: {
+      label: string;
+      text: string;
+    };
+  };
   sectionTitles: {
     business: {
       title: string;
@@ -314,6 +342,34 @@ export const translations: Record<Language, Translations> = {
         description: "Análisis computacional de fluidos para optimizar el flujo de aire, agua y otros fluidos. Mejoramos la aerodinámica, refrigeración y eficiencia energética mediante simulaciones avanzadas.",
       },
     },
+
+    analysisCards: {
+      stress: {
+        label: "STRESS",
+        text: "Segula proporciona soluciones de Ingeniería y Diseño a los OEM y su cadena de suministro. Nuestro alcance cubre Diseño Industrial, Desarrollo de Productos, CAE y prototipos.",
+      },
+      nvh: {
+        label: "NVH",
+        text: "Diseñar respetando el ruido, la vibración y la dureza (NVH) es notoriamente desafiante. Los vehículos deben ser refinados y silenciosos, pero rugir apropiadamente cuando queremos, y mantenerse dentro de los límites legales de ruido. Y con miles de componentes interactuando con la estructura, el NVH total puede ser difícil de predecir y diseñar, por esta razón es importante simularlos y detectar problemas o incumplimientos en cada etapa de diseño o para solucionar cualquier liberación actual. El modelado de ruido y vibración ofrece un conjunto completo de capacidades de pre/post y soluciones de ruido y vibración que abordan su necesidad de construir, comprender, evaluar y optimizar el rendimiento de ruido y vibración de modelos de sistemas y ensamblajes completos.",
+      },
+      thermal: {
+        label: "THERMAL",
+        text: "Las simulaciones de análisis térmico se realizan para la estimación de la distribución de temperatura, flujo de calor, gradientes térmicos y flujo de calor, además, tensiones térmicas una vez que se conoce el mapa de temperatura, de estas simulaciones se obtienen resultados basados en condiciones de carga, por lo tanto, es posible predecir el comportamiento térmico de cada componente y su interacción. El análisis se realiza tanto para flujo estacionario como para condiciones transitorias.",
+      },
+      crash: {
+        label: "CRASH",
+        text: "Simular choques ayuda a los ingenieros a diseñar vehículos más seguros y mejores; proteger el compartimiento de pasajeros es una de las partes más importantes cuando se trata de simulaciones de choques o impactos, usando simulación se pueden predecir tantos escenarios de condiciones de carga como sea posible sin pruebas físicas, lo que ahorra tiempo y dinero.",
+      },
+      cfd: {
+        label: "CFD",
+        text: "La implementación de servicios de simulación CFD (Dinámica de Fluidos Computacional) ha demostrado ser cada vez más beneficiosa para el proceso de diseño y análisis en una variedad de productos tanto a nivel de sistema como de componente, muchas industrias están apostando por simular el flujo de fluidos y la transferencia de calor en las primeras etapas de diseño o para resolver algunos problemas en diseños o procesos actuales, algunos de esos problemas involucran flujo compresible o incompresible, transferencia de calor conjugada, convección natural o forzada, radiación, entre otros.",
+      },
+      optimization: {
+        label: "OPTIMIZATION",
+        text: "Un desafío en la industria es diseñar estructuras fuertes y ligeras, usando optimización, los ingenieros pueden encontrar la mejor opción que pueda resistir de mejor manera las condiciones de carga (estáticas o dinámicas), lo que identifica la mejor combinación de parámetros geométricos para mejorar el rendimiento del producto y ahorrar material.",
+      },
+    },
+
     mainTitle: {
       eachYear: "Cada año,",
       atSegula: "en Segula Technologies",
@@ -563,6 +619,34 @@ export const translations: Record<Language, Translations> = {
         description: "Computational fluid analysis to optimize the flow of air, water and other fluids. We improve aerodynamics, cooling and energy efficiency through advanced simulations.",
       },
     },
+
+    analysisCards: {
+      stress: {
+        label: "STRESS",
+        text: "Segula provides Engineering & Design solutions to OEMs and their supply chain. Our scope covers Industrial Design, Product Development, CAE and prototyping.",
+      },
+      nvh: {
+        label: "NVH",
+        text: "Designing with respect for noise, vibration and harshness (NVH) is notoriously challenging. Vehicles must be refined and quiet, yet roar appropriately when we want them to – and stay within legal noise limits. And with thousands of components interacting with the structure, the total NVH can be hard to predict and design for this reason its important to simulate them and detect issues or not compliances in every design stage or to fix any current releasing. Noise and Vibration Modeling offers a comprehensive set of noise and vibration pre/post and solutions capabilities addressing your need to build, understand, evaluate and optimize the noise and vibration performance of complete system and assembly models.",
+      },
+      thermal: {
+        label: "THERMAL",
+        text: "Thermal analysis simulations are performed for estimation of temperature distribution, heat flux, thermal gradients and heat flow, besides, heat stresses once the temperature map is known, from these simulations it gets results in base on loading conditions, therefore it is possible to predict the thermal behavior for every component and its interaction. Analysis is done for both steady flow & transient conditions.",
+      },
+      crash: {
+        label: "CRASH",
+        text: "To Simulate crash helps engineers to design safer and better vehicles; protect the passenger compartment is one of the most important part when crash or impact simulations are involved, using simulation can predict as many loading conditions scenarios as possible without physical testing which save time and money.",
+      },
+      cfd: {
+        label: "CFD",
+        text: "The implementation of CFD (Computer Fluid Dynamic) simulation services, has proven to be of increasing benefit to the design and analysis process across a range of products at both a system and component level, many industries are betting for simulate fluid flow and heat transfer in early design stages or to solve some issues in current designs or processes, some of those problems involve compressible or incompressible flow, conjugate heat transfer, natural or forced convection, radiation, among others.",
+      },
+      optimization: {
+        label: "OPTIMIZATION",
+        text: "One challenge in the industry is to design strong and lightweight structures, using optimization, engineers can find the best option that can withstand in a better way the loading conditions (static or dynamic), which identifies the best combination of geometrical parameters to improve the product's performance and to save material.",
+      },
+    },
+
     mainTitle: {
       eachYear: "Each year,",
       atSegula: "at Segula Technologies",
@@ -812,6 +896,34 @@ export const translations: Record<Language, Translations> = {
         description: "Analyse computationnelle des fluides pour optimiser l'écoulement de l'air, de l'eau et d'autres fluides. Nous améliorons l'aérodynamique, le refroidissement et l'efficacité énergétique grâce à des simulations avancées.",
       },
     },
+
+    analysisCards: {
+      stress: {
+        label: "STRESS",
+        text: "Segula fournit des solutions d'ingénierie et de conception aux OEM et à leur chaîne d'approvisionnement. Notre champ d'action couvre la conception industrielle, le développement de produits, le CAE et le prototypage.",
+      },
+      nvh: {
+        label: "NVH",
+        text: "La conception dans le respect du bruit, des vibrations et de la dureté (NVH) est notoirement difficile. Les véhicules doivent être raffinés et silencieux, mais rugir de manière appropriée lorsque nous le voulons - et rester dans les limites légales de bruit. Et avec des milliers de composants interagissant avec la structure, le NVH total peut être difficile à prévoir et à concevoir. Pour cette raison, il est important de les simuler et de détecter les problèmes ou les non-conformités à chaque étape de conception ou pour corriger toute version actuelle. La modélisation du bruit et des vibrations offre un ensemble complet de capacités de pré/post et de solutions de bruit et de vibrations pour répondre à votre besoin de construire, comprendre, évaluer et optimiser les performances de bruit et de vibrations de modèles de systèmes et d'assemblages complets.",
+      },
+      thermal: {
+        label: "THERMAL",
+        text: "Les simulations d'analyse thermique sont effectuées pour l'estimation de la distribution de température, du flux de chaleur, des gradients thermiques et du flux de chaleur, en plus des contraintes thermiques une fois la carte de température connue. À partir de ces simulations, on obtient des résultats basés sur les conditions de charge, il est donc possible de prédire le comportement thermique de chaque composant et son interaction. L'analyse est effectuée à la fois pour un écoulement permanent et des conditions transitoires.",
+      },
+      crash: {
+        label: "CRASH",
+        text: "La simulation de crash aide les ingénieurs à concevoir des véhicules plus sûrs et meilleurs ; protéger l'habitacle est l'une des parties les plus importantes lorsque des simulations de crash ou d'impact sont impliquées. En utilisant la simulation, on peut prédire autant de scénarios de conditions de charge que possible sans tests physiques, ce qui permet d'économiser du temps et de l'argent.",
+      },
+      cfd: {
+        label: "CFD",
+        text: "La mise en œuvre de services de simulation CFD (Computational Fluid Dynamics) s'est avérée de plus en plus bénéfique pour le processus de conception et d'analyse dans une gamme de produits au niveau du système et des composants. De nombreuses industries parient sur la simulation de l'écoulement des fluides et du transfert de chaleur dans les premières étapes de conception ou pour résoudre certains problèmes dans les conceptions ou processus actuels. Certains de ces problèmes impliquent un écoulement compressible ou incompressible, un transfert de chaleur conjugué, une convection naturelle ou forcée, un rayonnement, entre autres.",
+      },
+      optimization: {
+        label: "OPTIMIZATION",
+        text: "Un défi dans l'industrie est de concevoir des structures solides et légères. En utilisant l'optimisation, les ingénieurs peuvent trouver la meilleure option qui peut résister de la meilleure façon aux conditions de charge (statiques ou dynamiques), ce qui identifie la meilleure combinaison de paramètres géométriques pour améliorer les performances du produit et économiser du matériel.",
+      },
+    },
+
     mainTitle: {
       eachYear: "Chaque année,",
       atSegula: "chez Segula Technologies",
