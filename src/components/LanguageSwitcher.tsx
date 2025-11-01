@@ -33,7 +33,7 @@ const languages: LanguageOption[] = [
  */
 const getLocalizedUrl = (locale: Language, path: string = ""): string => {
   // Limpiar la ruta de cualquier prefijo de idioma existente
-  const cleanPath = path.replace(/^\/(es|en|fr)/, "").replace(/^\/+/, "");
+  const cleanPath = path.replace(/^\/(es|en|fr)(\/|$)/, "/").replace(/^\/+/, "");
 
   // Para español (idioma por defecto), no agregar prefijo
   if (locale === "es") {
@@ -49,7 +49,7 @@ const getLocalizedUrl = (locale: Language, path: string = ""): string => {
  * @param currentPath - Ruta actual completa
  */
 const getCleanPath = (currentPath: string): string => {
-  return currentPath.replace(/^\/(es|en|fr)/, "") || "/";
+  return currentPath.replace(/^\/(es|en|fr)(\/|$)/, "/") || "/";
 };
 
 const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({

@@ -139,6 +139,8 @@ export interface Translations {
       telefono: string;
       sector: string;
       curriculum: string;
+      compania: string;
+      mensaje: string;
     };
     sectors: {
       tecnologia: string;
@@ -152,6 +154,7 @@ export interface Translations {
     };
     button: string;
     buttonSubmitting: string;
+    buttonContact: string;
   };
 
   // Validaciones
@@ -163,6 +166,8 @@ export interface Translations {
       telefono: string;
       sector: string;
       curriculum: string;
+      compania: string;
+      mensaje: string;
     };
     invalid: {
       email: string;
@@ -173,6 +178,7 @@ export interface Translations {
     minLength: {
       nombre: string;
       apellido: string;
+      mensaje: string;
     };
   };
 
@@ -413,6 +419,8 @@ export const translations: Record<Language, Translations> = {
         telefono: "Teléfono",
         sector: "Elige un sector",
         curriculum: "Adjuntar currículum",
+        compania: "Compañía",
+        mensaje: "Mensaje",
       },
       sectors: {
         tecnologia: "Tecnología",
@@ -426,6 +434,7 @@ export const translations: Record<Language, Translations> = {
       },
       button: "Aplicar ahora",
       buttonSubmitting: "Enviando...",
+      buttonContact: "Aplicar ahora",
     },
     validation: {
       required: {
@@ -435,6 +444,8 @@ export const translations: Record<Language, Translations> = {
         telefono: "El teléfono es obligatorio",
         sector: "Debes seleccionar un sector",
         curriculum: "Debes adjuntar tu currículum",
+        compania: "La compañía es obligatoria",
+        mensaje: "El mensaje es obligatorio",
       },
       invalid: {
         email: "El formato del correo electrónico no es válido",
@@ -445,6 +456,7 @@ export const translations: Record<Language, Translations> = {
       minLength: {
         nombre: "El nombre debe tener al menos 2 caracteres",
         apellido: "El apellido debe tener al menos 2 caracteres",
+        mensaje: "El mensaje debe tener al menos 10 caracteres",
       },
     },
     messages: {
@@ -690,6 +702,8 @@ export const translations: Record<Language, Translations> = {
         telefono: "Phone",
         sector: "Choose a sector",
         curriculum: "Attach resume",
+        compania: "Company",
+        mensaje: "Message",
       },
       sectors: {
         tecnologia: "Technology",
@@ -703,6 +717,7 @@ export const translations: Record<Language, Translations> = {
       },
       button: "Apply now",
       buttonSubmitting: "Submitting...",
+      buttonContact: "Apply now",
     },
     validation: {
       required: {
@@ -712,6 +727,8 @@ export const translations: Record<Language, Translations> = {
         telefono: "Phone is required",
         sector: "You must select a sector",
         curriculum: "You must attach your resume",
+        compania: "Company is required",
+        mensaje: "Message is required",
       },
       invalid: {
         email: "Email format is not valid",
@@ -722,6 +739,7 @@ export const translations: Record<Language, Translations> = {
       minLength: {
         nombre: "First name must be at least 2 characters",
         apellido: "Last name must be at least 2 characters",
+        mensaje: "Message must be at least 10 characters",
       },
     },
     messages: {
@@ -968,6 +986,8 @@ export const translations: Record<Language, Translations> = {
         telefono: "Téléphone",
         sector: "Choisir un secteur",
         curriculum: "Joindre CV",
+        compania: "Entreprise",
+        mensaje: "Message",
       },
       sectors: {
         tecnologia: "Technologie",
@@ -981,6 +1001,7 @@ export const translations: Record<Language, Translations> = {
       },
       button: "Postuler maintenant",
       buttonSubmitting: "Envoi en cours...",
+      buttonContact: "Postuler maintenant",
     },
     validation: {
       required: {
@@ -990,6 +1011,8 @@ export const translations: Record<Language, Translations> = {
         telefono: "Le téléphone est obligatoire",
         sector: "Vous devez sélectionner un secteur",
         curriculum: "Vous devez joindre votre CV",
+        compania: "L'entreprise est obligatoire",
+        mensaje: "Le message est obligatoire",
       },
       invalid: {
         email: "Le format de l'email n'est pas valide",
@@ -1000,6 +1023,7 @@ export const translations: Record<Language, Translations> = {
       minLength: {
         nombre: "Le prénom doit contenir au moins 2 caractères",
         apellido: "Le nom doit contenir au moins 2 caractères",
+        mensaje: "Le message doit contenir au moins 10 caractères",
       },
     },
     messages: {

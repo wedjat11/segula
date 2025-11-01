@@ -4,8 +4,10 @@ import Layout from '../../layouts/Layout.astro';
 import HeroImageSection from '@/components/HeroImageSection';
 import TitleContainer from '@/components/TitleContainer';
 import AnalysisSection from '@/components/AnalysisSection';
+import ContactForm from '@/components/ContactForm';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
+import AnalysisCardsComponent from '@/components/AnalysisCardsComponent';
 
 const currentLocale = 'fr';
 const currentPath = Astro.url.pathname;
@@ -36,6 +38,10 @@ const currentPath = Astro.url.pathname;
       locale={currentLocale}
       client:only
     />
+
+    <AnalysisCardsComponent locale={currentLocale} client:only="react" />
+
+    <ContactForm locale={currentLocale} client:load />
 
     <Footer locale={currentLocale} client:only />
   </container>
