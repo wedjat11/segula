@@ -27,7 +27,7 @@ export const FormInput: React.FC<FormInputProps> = ({
     <div className={className}>
       <div className="relative">
         {icon && (
-          <div className="absolute left-4 lg:left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 text-primary/60">
+          <div className="absolute left-4 lg:left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 text-primary">
             {icon}
           </div>
         )}
@@ -39,7 +39,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           onChange={(e) => onChange(e.target.value)}
           className={`w-full ${
             icon ? "pl-11 lg:pl-14" : "pl-5 lg:pl-6"
-          } pr-5 lg:pr-6 py-4 lg:py-5 text-base lg:text-lg rounded-full border-2 form-input ${
+          } pr-5 lg:pr-6 py-4 lg:py-5 text-base lg:text-lg text-primary rounded-full border-2 form-input ${
             error ? "border-red-500" : "border-primary/30"
           } bg-white/95 backdrop-blur-sm placeholder:text-gray-400 placeholder:text-base lg:placeholder:text-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300`}
           disabled={disabled}

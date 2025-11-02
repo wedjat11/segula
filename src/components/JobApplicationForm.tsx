@@ -35,7 +35,7 @@ interface JobApplicationFormProps {
 }
 
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwzGZJOIjbwVc00PUnfrLVsXR9TdOZiQCbG-ibXpDthOsoO3fZBGrbSixMRy2rLkeY7/exec";
+  "https://script.google.com/macros/s/AKfycbyr_p36taZGFIRe_uW4t_-Wd0BVyD58UTxsL--7Yt22vXCxMDuzUqc2W7wWyCqPLGJh/exec";
 
 const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
   locale,
@@ -74,6 +74,18 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
   useEffect(() => {
     setSubmitStatus("idle");
   }, [locale]);
+
+  // Verificar si todos los campos están completos
+  const isFormComplete = (): boolean => {
+    return (
+      formData.nombre.trim().length > 0 &&
+      formData.apellido.trim().length > 0 &&
+      formData.email.trim().length > 0 &&
+      formData.telefono.trim().length > 0 &&
+      formData.sector.length > 0 &&
+      formData.curriculum !== null
+    );
+  };
 
   // Validaciones
   const validateEmail = (email: string): boolean => {
@@ -177,6 +189,7 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
         fileName: formData.curriculum?.name || "",
         timestamp: new Date().toISOString(),
         language: locale,
+        formType: "job_application",
       };
 
       const response = await fetch(GOOGLE_SCRIPT_URL, {
@@ -207,51 +220,6 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
     }
   };
 
-  // Iconos SVG
-  const UserIcon = () => (
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-      />
-    </svg>
-  );
-
-  const EmailIcon = () => (
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-      />
-    </svg>
-  );
-
-  const PhoneIcon = () => (
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-      />
-    </svg>
-  );
-
-  const SelectIcon = () => (
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M19 14l-7 7m0 0l-7-7m7 7V3"
-      />
-    </svg>
-  );
-
   return (
     <section
       className={`min-h-screen bg-primary flex items-center justify-center p-6 lg:p-8 ${className}`}
@@ -271,7 +239,11 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
             <FormMessage type="error" message={t.messages.error} />
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5 lg:space-y-6" noValidate>
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-5 lg:space-y-6"
+            noValidate
+          >
             {/* Nombre y Apellido */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FormInput
@@ -281,7 +253,6 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
                 onChange={(value) => updateField("nombre", value)}
                 error={errors.nombre}
                 disabled={isSubmitting}
-                icon={<UserIcon />}
               />
               <FormInput
                 type="text"
@@ -290,7 +261,6 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
                 onChange={(value) => updateField("apellido", value)}
                 error={errors.apellido}
                 disabled={isSubmitting}
-                icon={<UserIcon />}
               />
             </div>
 
@@ -302,7 +272,6 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
               onChange={(value) => updateField("email", value)}
               error={errors.email}
               disabled={isSubmitting}
-              icon={<EmailIcon />}
             />
 
             {/* Teléfono y Sector */}
@@ -314,7 +283,6 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
                 onChange={(value) => updateField("telefono", value)}
                 error={errors.telefono}
                 disabled={isSubmitting}
-                icon={<PhoneIcon />}
               />
               <FormSelect
                 placeholder={t.form.placeholders.sector}
@@ -323,7 +291,6 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
                 options={sectors}
                 error={errors.sector}
                 disabled={isSubmitting}
-                icon={<SelectIcon />}
               />
             </div>
 
@@ -340,12 +307,37 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
             {/* Botón de envío */}
             <Button
               type="submit"
-              disabled={isSubmitting}
-              className="w-full py-5 lg:py-6 text-base lg:text-lg bg-primary hover:bg-primary/80 text-white font-semibold rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+              disabled={!isFormComplete() || isSubmitting}
+              className={`w-full py-5 lg:py-6 text-base lg:text-lg font-semibold rounded-full transition-all duration-300 shadow-lg ${
+                !isFormComplete()
+                  ? "bg-gray-400 text-white cursor-not-allowed"
+                  : isSubmitting
+                  ? "bg-gradient-to-r from-primary via-[#1a5a7f] to-primary text-white cursor-wait"
+                  : "bg-gradient-to-r from-primary via-[#1a5a7f] to-primary hover:from-[#1a5a7f] hover:via-primary hover:to-[#1a5a7f] text-white cursor-pointer hover:shadow-xl"
+              }`}
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center">
-                  <div className="loading-spinner mr-2"></div>
+                  <svg
+                    className="animate-spin h-5 w-5 mr-3"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
                   {t.form.buttonSubmitting}
                 </span>
               ) : (

@@ -32,7 +32,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
     <div className={className}>
       <div className="relative">
         {icon && (
-          <div className="absolute left-4 lg:left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 text-primary/60">
+          <div className="absolute left-4 lg:left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 text-primary">
             {icon}
           </div>
         )}
@@ -45,7 +45,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
           } pr-10 lg:pr-12 py-4 lg:py-5 text-base lg:text-lg rounded-full border-2 ${
             error ? "border-red-500" : "border-primary/30"
           } bg-white/95 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none cursor-pointer transition-all duration-300 ${
-            !value ? "text-gray-400" : "text-gray-900"
+            !value ? "text-gray-400" : "text-primary"
           }`}
           disabled={disabled}
           aria-invalid={!!error}
@@ -53,13 +53,13 @@ export const FormSelect: React.FC<FormSelectProps> = ({
         >
           <option value="" className="text-gray-400">{placeholder}</option>
           {options.map((option) => (
-            <option key={option.value} value={option.value} className="text-gray-900">
+            <option key={option.value} value={option.value} className="text-primary">
               {option.label}
             </option>
           ))}
         </select>
         <svg
-          className="absolute right-4 lg:right-5 top-1/2 transform -translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 text-primary/60 pointer-events-none"
+          className="absolute right-4 lg:right-5 top-1/2 transform -translate-y-1/2 w-5 h-5 lg:w-6 lg:h-6 text-primary pointer-events-none"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

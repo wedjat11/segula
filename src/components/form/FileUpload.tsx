@@ -47,20 +47,20 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         <button
           type="button"
           onClick={handleClick}
-          className={`w-full px-4 py-3 rounded-full border ${
-            error ? "border-red-500" : "border-gray-300"
-          } bg-white text-left flex items-center justify-between hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors file-input-button ${
+          className={`w-full px-5 lg:px-6 py-4 lg:py-5 text-base lg:text-lg rounded-full border-2 ${
+            error ? "border-red-500" : "border-primary/30"
+          } bg-white/95 backdrop-blur-sm text-left flex items-center justify-between hover:bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300 file-input-button ${
             disabled ? "opacity-50 cursor-not-allowed" : ""
           }`}
           disabled={disabled}
           aria-label={ariaLabel}
           aria-invalid={!!error}
         >
-          <span className={file ? "text-gray-900" : "text-gray-500"}>
+          <span className={file ? "text-primary" : "text-gray-400"}>
             {file ? file.name : placeholder}
           </span>
           <svg
-            className="w-5 h-5 text-gray-400"
+            className="w-5 h-5 lg:w-6 lg:h-6 text-primary"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -78,7 +78,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       {error && (
         <p
           id="file-error"
-          className="mt-1 text-sm text-red-500 error-message"
+          className="mt-2 text-sm lg:text-base text-red-500 error-message"
           role="alert"
         >
           {error}

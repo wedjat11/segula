@@ -30,7 +30,7 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           rows={rows}
-          className={`w-full px-5 lg:px-6 py-4 lg:py-5 text-base lg:text-lg rounded-3xl border-2 form-input resize-none ${
+          className={`w-full px-5 lg:px-6 py-4 lg:py-5 text-base lg:text-lg text-primary rounded-3xl border-2 form-input resize-none ${
             error ? "border-red-500" : "border-primary/30"
           } bg-white/95 backdrop-blur-sm placeholder:text-gray-400 placeholder:text-base lg:placeholder:text-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300`}
           disabled={disabled}
