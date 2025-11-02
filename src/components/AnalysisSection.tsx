@@ -36,7 +36,7 @@ export default function AnalysisSection({ locale }: Props) {
   };
 
   return (
-    <section className="w-full py-16 px-6">
+    <section className="w-full py-16 px-6" id="about">
       <div className="flex gap-8 w-11/12 mx-auto">
         <div className="flex-1">
           <h2 className="text-3xl font-bold mb-6">

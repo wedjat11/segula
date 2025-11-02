@@ -72,6 +72,7 @@ const EngineeringServicesSection: React.FC<Props> = ({
     <section
       className={`py-12 lg:py-20 w-11/12 mx-auto ${className}`}
       aria-labelledby="engineering-services-title"
+      id="about"
     >
       <div className="w-11/12 mx-auto px-4">
         {/* Bullets de servicios - Tres en fila */}

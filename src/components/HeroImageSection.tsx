@@ -118,13 +118,13 @@ const HeroImageSection: React.FC<Props> = ({
 
       {/* Imagen de fondo */}
       {imgSrc && (
-        <motion.img
+        <img
           src={imgSrc}
           alt={imgAlt}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: imageLoaded && !imageError ? 1 : 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="w-full h-full object-cover"
+          className={clsx(
+            "w-full h-full object-cover transition-opacity duration-700 ease-out",
+            imageLoaded && !imageError ? "opacity-100" : "opacity-0"
+          )}
           onLoad={handleImageLoad}
           onError={handleImageError}
           loading="eager"
@@ -132,34 +132,32 @@ const HeroImageSection: React.FC<Props> = ({
       )}
 
       {/* Texto descriptivo */}
-      {displayText && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: imageLoaded ? 1 : 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="absolute inset-x-0 bottom-24 z-20 p-4 md:p-8"
+      {displayText && imageLoaded && (
+        <div
+          className="absolute inset-x-0 bottom-24 z-20 p-4 md:p-8 animate-fadeInUp"
+          style={{ animationDelay: '0.2s' }}
         >
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-white text-sm md:text-xl font-light md:font-normal leading-relaxed drop-shadow-lg">
               {displayText}
             </p>
           </div>
-        </motion.div>
+        </div>
       )}
 
       {/* Scroll Button - centrado en la parte inferior */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: imageLoaded ? 1 : 0 }}
-        transition={{ duration: 1, delay: 0.3 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
-      >
-        <div className="flex cursor-pointer items-center backdrop-blur-lg justify-center size-10 md:size-12 lg:size-16 bg-primary/50 text-white rounded-full hover:bg-primary/60 transition-all duration-300 shadow-lg hover:shadow-xl animate-bounce">
-          <a href="#about" aria-label="Scroll to content">
-            <ArrowDown className="w-5 md:w-7 lg:w-10" />
-          </a>
+      {imageLoaded && (
+        <div
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-fadeInUp"
+          style={{ animationDelay: '0.3s' }}
+        >
+          <div className="flex cursor-pointer items-center backdrop-blur-lg justify-center size-10 md:size-12 lg:size-16 bg-primary/50 text-white rounded-full hover:bg-primary/60 transition-all duration-300 shadow-lg hover:shadow-xl animate-bounce">
+            <a href="#about" aria-label="Scroll to content">
+              <ArrowDown className="w-5 md:w-7 lg:w-10" />
+            </a>
+          </div>
         </div>
-      </motion.div>
+      )}
     </section>
   );
 };
