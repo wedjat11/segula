@@ -12,11 +12,11 @@ interface Props {
 
 // Enlaces del menú (rutas base sin idioma)
 const menuLinks = [
-  { nameKey: "aboutUs", url: "/" },
-  { nameKey: "engineeringServices", url: "/engineering-services" },
-  { nameKey: "analysisSimulation", url: "/analysis-simulation" },
-  { nameKey: "news", url: "/news" },
-  { nameKey: "innovation", url: "/innovation" },
+  { nameKey: "aboutUs", url: "/", external: false },
+  { nameKey: "engineeringServices", url: "/engineering-services", external: false },
+  { nameKey: "analysisSimulation", url: "/analysis-simulation", external: false },
+  { nameKey: "news", url: "https://www.segulatechnologies.com/en/latest-news/", external: true },
+  { nameKey: "innovation", url: "https://www.segulatechnologies.com/en/innovation/", external: true },
 ] as const;
 
 interface MobileMenuProps {
@@ -62,7 +62,9 @@ function MobileMenu({ locale }: MobileMenuProps) {
               {menuLinks.map((link, index) => (
                 <a
                   key={index}
-                  href={getLocalizedUrl(locale, link.url)}
+                  href={link.external ? link.url : getLocalizedUrl(locale, link.url)}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
                   className="block px-6 py-4 hover:bg-black/30 transition-all duration-300 focus:bg-black/40 focus:outline-none"
                   role="menuitem"
                 >
@@ -97,7 +99,9 @@ function DesktopMenu({ locale }: DesktopMenuProps) {
             {menuLinks.map((link, index) => (
               <a
                 key={index}
-                href={getLocalizedUrl(locale, link.url)}
+                href={link.external ? link.url : getLocalizedUrl(locale, link.url)}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
                 className="px-6 py-3 rounded-full text-white hover:bg-primary hover:shadow-lg transition-all duration-300 font-medium text-center whitespace-nowrap focus:bg-black/40 focus:outline-none focus:ring-2 focus:ring-white/30 border border-transparent hover:border-white/20"
                 role="menuitem"
               >

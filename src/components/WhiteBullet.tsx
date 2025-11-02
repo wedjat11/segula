@@ -11,6 +11,7 @@ interface Props {
   isActive?: boolean;
   isInactive?: boolean;
   bulletColor?: string;
+  variant?: 'default' | 'nosotros'; // Nueva prop para diferenciar variantes
 }
 
 const WhiteBullet: React.FC<Props> = ({
@@ -23,15 +24,33 @@ const WhiteBullet: React.FC<Props> = ({
   isActive = false,
   isInactive = false,
   bulletColor = "bg-primary",
+  variant = 'default',
 }) => {
   // Determinar si el componente es clickeable
   const isClickable = onClick !== undefined;
 
+  // Mapeo de iconos según el título (solo para variant default)
+  const getIconForTitle = (title: string) => {
+    if (variant === 'nosotros') return null;
+
+    const lowerTitle = title.toLowerCase();
+    if (lowerTitle.includes('automotriz') || lowerTitle.includes('automotive')) return '🚗';
+    if (lowerTitle.includes('energia') || lowerTitle.includes('energía')) return '⚡';
+    if (lowerTitle.includes('vehiculos') || lowerTitle.includes('vehículos') || lowerTitle.includes('industrial vehicles')) return '⚙️';
+    if (lowerTitle.includes('aerospace')) return '✈️';
+    return null;
+  };
+
+  const titleIcon = getIconForTitle(title);
+
+  // Determinar si debe mostrar el punto negro
+  const showBulletPoint = variant === 'nosotros' && !icon;
+
   // Clases base del componente con estados mejorados
   const baseClasses = `
-    flex items-center gap-3 p-3 backdrop-blur-sm rounded-full 
-    border transition-all duration-500 w-[120px] md:w-[250px] lg:w-[220px] 
-    text-xs font-semibold md:text-lg lg:text-2xl justify-center
+    flex items-center gap-3 p-3 backdrop-blur-sm rounded-full
+    border transition-all duration-500 ${variant === 'nosotros' ? 'w-[250px]' : 'w-auto whitespace-nowrap'}
+    text-xs font-semibold md:text-lg lg:text-2xl justify-center px-4
     ${
       isActive
         ? "bg-white text-gray-900 border-white shadow-xl"
@@ -72,8 +91,8 @@ const WhiteBullet: React.FC<Props> = ({
       aria-label={alt || title}
       onKeyDown={isClickable ? handleKeyDown : undefined}
     >
-      {/* Icono o bullet point */}
-      {icon ? (
+      {/* Icono personalizado */}
+      {icon && (
         <img
           src={icon}
           alt={alt || title}
@@ -81,7 +100,10 @@ const WhiteBullet: React.FC<Props> = ({
             isInactive ? "opacity-50" : "opacity-100"
           }`}
         />
-      ) : (
+      )}
+
+      {/* Bullet point - solo para variant nosotros */}
+      {showBulletPoint && (
         <div
           className={`size-2 md:size-4 rounded-full transition-all duration-500 ${
             isActive
@@ -92,6 +114,13 @@ const WhiteBullet: React.FC<Props> = ({
           }`}
           aria-hidden="true"
         />
+      )}
+
+      {/* Icono específico del título - solo para variant default */}
+      {titleIcon && (
+        <span className="text-base md:text-xl" style={{ marginLeft: '5px' }}>
+          {titleIcon}
+        </span>
       )}
 
       {/* Título */}

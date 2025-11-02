@@ -272,22 +272,58 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
       .skip-to-main:focus {
         top: 6px;
       }
+
+      /* Page transition overlay - carga inmediatamente */
+      #page-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: #000;
+        z-index: 9999;
+        opacity: 1;
+        animation: fadeOut 0.4s ease-out forwards;
+        animation-delay: 0.05s;
+        pointer-events: none;
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      /* Ocultar el body hasta que el overlay esté listo */
+      body {
+        opacity: 0;
+        animation: bodyFadeIn 0.05s ease-out forwards;
+      }
+
+      @keyframes bodyFadeIn {
+        to {
+          opacity: 1;
+        }
+      }
     </style>
   </head>
-  
+
   <body>
+    <!-- Page Transition Overlay - renderizado inmediatamente -->
+    <div id="page-overlay"></div>
+
     <!-- Skip to main content para accesibilidad -->
     <a href="#main-content" class="skip-to-main sr-only focus:not-sr-only">
-      {lang === 'es' ? 'Ir al contenido principal' : 
-       lang === 'en' ? 'Skip to main content' : 
+      {lang === 'es' ? 'Ir al contenido principal' :
+       lang === 'en' ? 'Skip to main content' :
        'Aller au contenu principal'}
     </a>
-    
+
     <!-- Contenido principal -->
     <main id="main-content">
       <slot />
     </main>
-    
+
     <!-- WhatsApp Float -->
     <WhatsAppFloat client:only />
     
@@ -334,5 +370,45 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
     
     <!-- Analytics placeholder (agregar tu código de analytics aquí) -->
     <!-- Google Analytics, Hotjar, etc. -->
+
+    <script>
+      // Script para manejar transiciones entre páginas
+      document.addEventListener('DOMContentLoaded', () => {
+        const overlay = document.getElementById('page-overlay');
+
+        // Remover el overlay después de la animación
+        if (overlay) {
+          setTimeout(() => {
+            overlay.style.display = 'none';
+          }, 500);
+        }
+
+        // Interceptar clicks en enlaces para mostrar overlay
+        document.addEventListener('click', (e) => {
+          const target = e.target as HTMLElement;
+          const link = target.closest('a');
+
+          if (link && link.href && !link.target && link.origin === window.location.origin) {
+            // Es un link interno
+            const overlay = document.getElementById('page-overlay');
+            if (overlay) {
+              overlay.style.display = 'block';
+              overlay.style.opacity = '0';
+              overlay.style.animation = 'fadeIn 0.15s ease-out forwards';
+            }
+          }
+        });
+      });
+
+      // Crear animación fadeIn si no existe
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
   </body>
 </html>

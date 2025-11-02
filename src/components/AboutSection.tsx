@@ -26,6 +26,7 @@ const AboutSection: React.FC<Props> = ({ locale, className = "" }) => {
         title={t.aboutSection.bulletTitle}
         alt={t.aboutSection.bulletAlt}
         locale={locale}
+        variant="nosotros"
       />
 
       <div className="w-full flex flex-col md:flex-row gap-14">
