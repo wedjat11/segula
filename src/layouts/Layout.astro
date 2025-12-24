@@ -1,6 +1,4 @@
 ---
-// src/layouts/Layout.astro
-
 import WhatsAppFloat from '@/components/WhatssAppFolat';
 import type { Language } from '../lib/translations';
 import "../styles/global.css";
@@ -23,7 +21,6 @@ const descriptions = {
   fr: description || 'Rejoignez Segula Technologies. Des milliers de nouveaux ingénieurs commencent leur histoire avec nous chaque année. Pourquoi pas vous ?'
 };
 
-// Meta tags por idioma con mejor SEO
 const metaTags = {
   es: {
     keywords: 'empleo ingeniería, trabajos tecnología, Segula Technologies, carreras ingeniería, oportunidades laborales México, empleos ingenieros',
@@ -47,23 +44,18 @@ const metaTags = {
 
 const currentMeta = metaTags[lang];
 
-// Generar URLs absolutas para hreflang
 const baseUrl = Astro.site?.toString() || 'https://segula-technologies.com';
 const cleanPath = currentPath.replace(/^\/(es|en|fr)/, '') || '/';
 
-// URLs para hreflang (mejores para SEO)
 const hreflangs = {
   es: cleanPath === '/' ? baseUrl : `${baseUrl}${cleanPath}`,
   en: cleanPath === '/' ? `${baseUrl}en/` : `${baseUrl}en${cleanPath}`,
   fr: cleanPath === '/' ? `${baseUrl}fr/` : `${baseUrl}fr${cleanPath}`
 };
 
-// URL canónica
 const canonicalUrl = lang === 'es' 
   ? (cleanPath === '/' ? baseUrl : `${baseUrl}${cleanPath}`)
   : `${baseUrl}${lang}${cleanPath}`;
-
-// Título completo con sufijo
 const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titleSuffix}`;
 ---
 
@@ -78,7 +70,6 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#1e293b" />
     
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={currentMeta.ogTitle} />
     <meta property="og:description" content={currentMeta.ogDescription} />
@@ -89,12 +80,10 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
     <meta property="og:site_name" content="Segula Technologies" />
     <meta property="og:locale" content={lang === 'es' ? 'es_ES' : lang === 'en' ? 'en_US' : 'fr_FR'} />
     
-    <!-- Open Graph alternate locales -->
     {lang !== 'es' && <meta property="og:locale:alternate" content="es_ES" />}
     {lang !== 'en' && <meta property="og:locale:alternate" content="en_US" />}
     {lang !== 'fr' && <meta property="og:locale:alternate" content="fr_FR" />}
     
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@SegulaGroup" />
     <meta name="twitter:creator" content="@SegulaGroup" />
@@ -102,16 +91,13 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
     <meta name="twitter:description" content={currentMeta.ogDescription} />
     <meta name="twitter:image" content={`${baseUrl}logoSegula.png`} />
     
-    <!-- Hreflang tags para SEO multiidioma -->
-    <link rel="alternate" hreflang="es" href={hreflangs.es} />
+      <link rel="alternate" hreflang="es" href={hreflangs.es} />
     <link rel="alternate" hreflang="en" href={hreflangs.en} />
     <link rel="alternate" hreflang="fr" href={hreflangs.fr} />
     <link rel="alternate" hreflang="x-default" href={hreflangs.es} />
     
-    <!-- Canonical URL -->
     <link rel="canonical" href={canonicalUrl} />
     
-    <!-- Favicon y iconos -->
     <link rel="icon" type="image/png" href="/favicon.png" />
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -119,22 +105,21 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     
-    <!-- Preload recursos críticos -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" href="/logoSegula.png" as="image" type="image/png" />
     
-    <!-- DNS Prefetch para recursos externos -->
+  
     <link rel="dns-prefetch" href="//wa.me" />
     <link rel="dns-prefetch" href="//api.whatsapp.com" />
     
     <title>{fullTitle}</title>
     <ClientRouter />
     
-    <!-- Global styles -->
     <style>
       html {
-        /* scroll-behavior: smooth; - Removed to avoid conflict with Lenis */
+        
       }
 
       html.lenis {
@@ -165,7 +150,6 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
         overflow-x: hidden;
       }
       
-      /* Loading spinner styles */
       .loading-spinner {
         border: 2px solid #f3f3f3;
         border-top: 2px solid #3498db;
@@ -346,24 +330,20 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
   </head>
 
   <body>
-    <!-- Skip to main content para accesibilidad -->
     <a href="#main-content" class="skip-to-main sr-only focus:not-sr-only">
       {lang === 'es' ? 'Ir al contenido principal' :
        lang === 'en' ? 'Skip to main content' :
        'Aller au contenu principal'}
     </a>
 
-    <!-- Contenido principal -->
     <main id="main-content">
       <TransitionWrapper client:load>
         <slot />
       </TransitionWrapper>
     </main>
 
-    <!-- WhatsApp Float -->
     <WhatsAppFloat client:only />
     
-    <!-- Structured data para mejor SEO -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
