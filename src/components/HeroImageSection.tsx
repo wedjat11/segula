@@ -75,7 +75,7 @@ const HeroImageSection: React.FC<Props> = ({
 
       {/* Menu - debajo del header */}
       <div className="absolute top-20 left-0 right-0 z-30">
-        <MainMenu locale={locale} />
+        <MainMenu locale={locale} currentPath={currentPath} />
       </div>
 
       {/* Gradiente overlay */}

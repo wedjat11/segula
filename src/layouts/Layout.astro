@@ -4,6 +4,8 @@
 import WhatsAppFloat from '@/components/WhatssAppFolat';
 import type { Language } from '../lib/translations';
 import "../styles/global.css";
+import { ClientRouter } from 'astro:transitions';
+import TransitionWrapper from '@/components/TransitionWrapper';
 
 export interface Props {
   title: string;
@@ -110,7 +112,7 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
     <link rel="canonical" href={canonicalUrl} />
     
     <!-- Favicon y iconos -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -125,13 +127,13 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
     <link rel="dns-prefetch" href="//wa.me" />
     <link rel="dns-prefetch" href="//api.whatsapp.com" />
     
-    <!-- Title -->
     <title>{fullTitle}</title>
+    <ClientRouter />
     
     <!-- Global styles -->
     <style>
       html {
-        scroll-behavior: smooth;
+        /* scroll-behavior: smooth; - Removed to avoid conflict with Lenis */
       }
 
       html.lenis {
@@ -343,11 +345,6 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
   </head>
 
   <body>
-    <!-- Page Transition Overlay - renderizado inmediatamente -->
-    <div id="page-overlay">
-      <div class="page-loader"></div>
-    </div>
-
     <!-- Skip to main content para accesibilidad -->
     <a href="#main-content" class="skip-to-main sr-only focus:not-sr-only">
       {lang === 'es' ? 'Ir al contenido principal' :
@@ -357,7 +354,9 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
 
     <!-- Contenido principal -->
     <main id="main-content">
-      <slot />
+      <TransitionWrapper client:load>
+        <slot />
+      </TransitionWrapper>
     </main>
 
     <!-- WhatsApp Float -->
@@ -407,51 +406,7 @@ const fullTitle = title.includes('Segula') ? title : `${title}${currentMeta.titl
     <!-- Analytics placeholder (agregar tu código de analytics aquí) -->
     <!-- Google Analytics, Hotjar, etc. -->
 
-    <script>
-      // Script para manejar transiciones entre páginas
-      document.addEventListener('DOMContentLoaded', () => {
-        const overlay = document.getElementById('page-overlay');
-
-        // Remover el overlay después de la animación
-        if (overlay) {
-          setTimeout(() => {
-            overlay.style.display = 'none';
-          }, 500);
-        }
-
-        // Interceptar clicks en enlaces para mostrar overlay
-        document.addEventListener('click', (e) => {
-          const target = e.target as HTMLElement;
-          const link = target.closest('a');
-
-          if (link && link.href && !link.target && link.origin === window.location.origin) {
-            // Verificar que no es un anchor link (scroll interno)
-            const url = new URL(link.href);
-            if (url.pathname === window.location.pathname && url.hash) {
-              // Es un scroll interno (#about, etc.), no mostrar overlay
-              return;
-            }
-
-            // Es un link interno a otra página
-            const overlay = document.getElementById('page-overlay');
-            if (overlay) {
-              overlay.style.display = 'flex';
-              overlay.style.opacity = '0';
-              overlay.style.animation = 'fadeIn 0.15s ease-out forwards';
-            }
-          }
-        });
-      });
-
-      // Crear animación fadeIn si no existe
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-      `;
-      document.head.appendChild(style);
-    </script>
+    <!-- Analytics placeholder (agregar tu código de analytics aquí) -->
+    <!-- Google Analytics, Hotjar, etc. -->
   </body>
 </html>

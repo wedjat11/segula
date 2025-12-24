@@ -2,12 +2,13 @@ import React from "react";
 import { PopoverArrow } from "@radix-ui/react-popover";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import type { Language } from "../lib/translations";
-import { useTranslations, getLocalizedUrl } from "../lib/i18n-utils";
+import { useTranslations, getLocalizedUrl, getCleanPath } from "../lib/i18n-utils";
 
 interface Props {
   locale: Language;
   className?: string;
   ismobile?: boolean;
+  currentPath?: string;
 }
 
 // Enlaces del menú (rutas base sin idioma)
@@ -21,10 +22,28 @@ const menuLinks = [
 
 interface MobileMenuProps {
   locale: Language;
+  currentPath: string;
 }
 
-function MobileMenu({ locale }: MobileMenuProps) {
+function MobileMenu({ locale, currentPath }: MobileMenuProps) {
   const t = useTranslations(locale);
+  
+  // Encontrar la página actual
+  const cleanPath = getCleanPath(currentPath);
+  
+  // Función helper para normalizar rutas (quitar slash final)
+  const normalizePath = (path: string) => {
+    if (path === "/") return path;
+    return path.endsWith("/") ? path.slice(0, -1) : path;
+  };
+
+  const normalizedCurrent = normalizePath(cleanPath);
+
+  const activeLink = menuLinks.find(link => {
+    if (link.external) return false;
+    const normalizedLink = normalizePath(link.url);
+    return normalizedCurrent === normalizedLink;
+  }) || menuLinks[0]; // Fallback a Home/About Us
 
   return (
     <div className="w-full backdrop-blur-md bg-primary/40 border border-primary/50 rounded-full shadow-lg">
@@ -33,9 +52,9 @@ function MobileMenu({ locale }: MobileMenuProps) {
           <PopoverTrigger asChild>
             <button
               className="text-white px-6 py-3 rounded-md flex items-center w-full font-semibold justify-between hover:bg-black/30 transition-all duration-300"
-              aria-label={`${t.menu.menu} - ${t.menu.aboutUs}`}
+              aria-label={`${t.menu.menu} - ${t.menu[activeLink.nameKey]}`}
             >
-              <span>{t.menu.aboutUs}</span>
+              <span>{t.menu[activeLink.nameKey].toUpperCase()}</span>
               <svg
                 className="w-4 h-4 ml-2 transition-transform group-data-[state=open]:rotate-180"
                 fill="none"
@@ -115,12 +134,12 @@ function DesktopMenu({ locale }: DesktopMenuProps) {
   );
 }
 
-const MainMenu: React.FC<Props> = ({ locale, className = "", ismobile }) => {
+const MainMenu: React.FC<Props> = ({ locale, className = "", ismobile, currentPath = "/" }) => {
   return (
     <div className={className}>
       {/* Mobile Menu - visible only on mobile */}
       <div className="block md:hidden px-4">
-        <MobileMenu locale={locale} />
+        <MobileMenu locale={locale} currentPath={currentPath} />
       </div>
 
       {/* Desktop Menu - visible only on desktop */}

@@ -23,7 +23,7 @@ const MainHeader: React.FC<MainHeaderProps> = ({
     >
       {/* Enlace al sitio del grupo */}
       <a
-        href="https://github.com/jesusalfonso/segula"
+        href="https://www.segulatechnologies.com/en/"
         className="backdrop-blur-md bg-primary/70 border border-primary/80 text-white px-4 rounded-full h-10 shadow-lg hover:bg-primary/80 hover:border-white/20 transition-all duration-300 hidden lg:flex items-center justify-center"
         target="_blank"
         rel="noopener noreferrer"

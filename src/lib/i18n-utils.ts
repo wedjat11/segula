@@ -57,7 +57,7 @@ export function getCurrentLocale(url: URL | string): Language {
  * Útil para mantener la navegación entre idiomas
  */
 export function getCleanPath(currentPath: string): string {
-  return currentPath.replace(/^\/(es|en|fr)/, "") || "/";
+  return currentPath.replace(/^\/(es|en|fr)(\/|$)/, "/") || "/";
 }
 
 /**
